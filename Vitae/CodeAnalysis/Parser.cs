@@ -13,7 +13,7 @@ namespace Vitae.CodeAnalysis {
             var lexer = new Lexer(text);
             Token token;
             do {
-                token = lexer.NextToken();
+                token = lexer.Lex();
 
                 if (token.Type != SyntaxType.Whitespace && token.Type != SyntaxType.Invalid) {
                     tokens.Add(token);
@@ -59,38 +59,43 @@ namespace Vitae.CodeAnalysis {
             return new SyntaxTree(_diagnostics, expr, eofToken);
         }
 
-        private ExpressionSyntax ParseExpression()
-        {
-            return ParseTerm();
-        }
-
-        private ExpressionSyntax ParseTerm()
-        {
-            var left = ParseFactor();
-
-            while (Current.Type == SyntaxType.Plus || Current.Type == SyntaxType.Minus)
-            {
-                var operatorToken = NextToken();
-                var right = ParseFactor();
-                left = new BinaryExpression(left, operatorToken, right);
-            }
-
-            return left;
-        }
-
-        private ExpressionSyntax ParseFactor()
+        private ExpressionSyntax ParseExpression(int parentPrecedence = 0)
         {
             var left = ParsePrimaryExpression();
 
-            while (Current.Type == SyntaxType.Multiply || Current.Type == SyntaxType.Divide ||
-                    Current.Type == SyntaxType.Power || Current.Type == SyntaxType.Modulo)
+            while (true)
             {
+                var precedence = GetBinaryOperatorPrecedence(Current.Type);
+                if (precedence == 0 || precedence  <= parentPrecedence)
+                    break;
+
                 var operatorToken = NextToken();
-                var right = ParsePrimaryExpression();
+                var right = ParseExpression(precedence);
                 left = new BinaryExpression(left, operatorToken, right);
             }
 
             return left;
+        }
+
+        private static int GetBinaryOperatorPrecedence(SyntaxType type)
+        {
+            switch (type)
+            {
+                case SyntaxType.Power:
+                    return 3;
+
+                case SyntaxType.Modulo:
+                case SyntaxType.Multiply:
+                case SyntaxType.Divide:
+                    return 2;
+
+                case SyntaxType.Plus:
+                case SyntaxType.Minus:
+                    return 1;
+                
+                default:
+                    return 0;
+            }
         }
 
         private ExpressionSyntax ParsePrimaryExpression()

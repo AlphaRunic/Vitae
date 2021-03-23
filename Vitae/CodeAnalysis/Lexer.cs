@@ -25,7 +25,7 @@ namespace Vitae.CodeAnalysis {
             _pos++;
         }
 
-        public Token NextToken() {
+        public Token Lex() {
             if (_pos >= _text.Length) {
                 return new Token(SyntaxType.EOF, _pos, "\0", null);
             }
