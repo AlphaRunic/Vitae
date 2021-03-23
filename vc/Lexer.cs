@@ -45,8 +45,7 @@ namespace vc {
 
                 var length = _pos - start;
                 var text = _text.Substring(start, length);
-                int.TryParse(text, out var value);
-                return new Token(SyntaxType.Whitespace, start, text, value);
+                return new Token(SyntaxType.Whitespace, start, text, null);
             }
 
             switch(Current) {
