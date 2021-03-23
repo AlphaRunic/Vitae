@@ -21,6 +21,22 @@ namespace Vitae.CodeAnalysis
             if (node is LiteralExpression n)
                 return (int) n.Token.Value;
 
+            if (node is UnaryExpression u)
+            {
+                var operand = EvaluateExpression(u.Operand);
+
+                switch (u.OperatorToken.Type)
+                {
+                    case SyntaxType.Plus:
+                        return (int) MathF.Abs(operand);
+                    case SyntaxType.Minus:
+                        return -operand;
+                        
+                    default:
+                        throw new Exception($"unexpected unary operator {u.OperatorToken.Type}");
+                }
+            }
+
             if (node is BinaryExpression b)
             {
                 var left = EvaluateExpression(b.Left);

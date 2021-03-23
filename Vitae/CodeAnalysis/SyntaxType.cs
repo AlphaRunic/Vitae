@@ -16,6 +16,7 @@ namespace Vitae.CodeAnalysis {
         
         LiteralExpression,
         BinaryExpression,
-        ParenthesizedExpression
+        ParenthesizedExpression,
+        UnaryExpression
     }
 }
