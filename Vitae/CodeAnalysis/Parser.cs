@@ -65,7 +65,7 @@ namespace Vitae.CodeAnalysis {
 
             while (true)
             {
-                var precedence = GetBinaryOperatorPrecedence(Current.Type);
+                var precedence = Current.Type.GetBinaryOperatorPrecedence();
                 if (precedence == 0 || precedence  <= parentPrecedence)
                     break;
 
@@ -75,27 +75,6 @@ namespace Vitae.CodeAnalysis {
             }
 
             return left;
-        }
-
-        private static int GetBinaryOperatorPrecedence(SyntaxType type)
-        {
-            switch (type)
-            {
-                case SyntaxType.Power:
-                    return 3;
-
-                case SyntaxType.Modulo:
-                case SyntaxType.Multiply:
-                case SyntaxType.Divide:
-                    return 2;
-
-                case SyntaxType.Plus:
-                case SyntaxType.Minus:
-                    return 1;
-                
-                default:
-                    return 0;
-            }
         }
 
         private ExpressionSyntax ParsePrimaryExpression()
