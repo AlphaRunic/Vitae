@@ -55,6 +55,19 @@ namespace Vitae.CodeAnalysis.Syntax {
                 return new Token(SyntaxType.Whitespace, start, text, null);
             }
 
+            if (char.IsLetter(Current))
+            {
+                var start = _pos;
+
+                while(char.IsLetter(Current))
+                    Next();
+
+                var length = _pos - start;
+                var text = _text.Substring(start, length);
+                var type = SyntaxFacts.GetKeywordType(text);
+                return new Token(type, start, text, null);
+            }
+
             switch(Current) {
                 case '+':
                     return new Token(SyntaxType.Plus, _pos++, "+", null);

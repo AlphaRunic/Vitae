@@ -1,3 +1,5 @@
+using System;
+
 namespace Vitae.CodeAnalysis.Syntax
 {
     internal static class SyntaxFacts
@@ -33,6 +35,20 @@ namespace Vitae.CodeAnalysis.Syntax
                 
                 default:
                     return 0;
+            }
+        }
+
+        public static SyntaxType GetKeywordType(string text)
+        {
+            switch (text)
+            {
+                case "true":
+                    return SyntaxType.True;
+                case "false":
+                    return SyntaxType.False;
+                
+                default:
+                    return SyntaxType.Identifier;
             }
         }
     }

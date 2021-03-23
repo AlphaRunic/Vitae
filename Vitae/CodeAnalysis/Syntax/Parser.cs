@@ -90,16 +90,33 @@ namespace Vitae.CodeAnalysis.Syntax {
 
         private ExpressionSyntax ParsePrimaryExpression()
         {
-            if (Current.Type == SyntaxType.OpenParen)
+            switch (Current.Type)
             {
-                var left = NextToken();
-                var expr = ParseExpression();
-                var right = MatchToken(SyntaxType.ClosedParen);
-                return new ParenthesizedExpression(left, expr, right);
-            }
+                case SyntaxType.OpenParen:
+                    {
+                        Token left = NextToken();
+                        ExpressionSyntax expr = ParseExpression();
+                        Token right = MatchToken(SyntaxType.ClosedParen);
+                        return new ParenthesizedExpression(left, expr, right);
+                    }
 
-            var number = MatchToken(SyntaxType.Number);
-            return new LiteralExpression(number);
+                case SyntaxType.False:
+                    {
+                        Token keywordToken = NextToken();
+                        return new LiteralExpression(keywordToken, false);
+                    }
+                case SyntaxType.True:
+                    {
+                        Token keywordToken = NextToken();
+                        return new LiteralExpression(keywordToken, true);
+                    }
+
+                default:
+                    {
+                        Token numberToken = MatchToken(SyntaxType.Number);
+                        return new LiteralExpression(numberToken);
+                    }
+            }
         }
     }
 }

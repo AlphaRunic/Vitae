@@ -104,7 +104,7 @@ namespace Vitae.CodeAnalysis.Binding
 
         private BoundExpression BindLiteralExpression(LiteralExpression syntax)
         {
-            var value = syntax.Token.Value as int? ?? 0;
+            var value = syntax.Value ?? 0;
             return new BoundLiteralExpression(value);
         }
     }

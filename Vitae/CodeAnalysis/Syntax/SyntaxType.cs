@@ -1,5 +1,7 @@
-namespace Vitae.CodeAnalysis.Syntax {
-    public enum SyntaxType {
+namespace Vitae.CodeAnalysis.Syntax
+{
+    public enum SyntaxType
+    {
         Invalid,
         EOF,
 
@@ -13,10 +15,14 @@ namespace Vitae.CodeAnalysis.Syntax {
         Power,
         OpenParen,
         ClosedParen,
+        Identifier,
         
         LiteralExpression,
         BinaryExpression,
         ParenthesizedExpression,
-        UnaryExpression
+        UnaryExpression,
+
+        True,
+        False
     }
 }

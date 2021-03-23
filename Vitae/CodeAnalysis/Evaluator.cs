@@ -13,19 +13,19 @@ namespace Vitae.CodeAnalysis
             _root = root;
         }
 
-        public int Evaluate()
+        public object Evaluate()
         {
             return EvaluateExpression(_root);
         }
 
-        private int EvaluateExpression(BoundExpression node)
+        private object EvaluateExpression(BoundExpression node)
         {
             if (node is BoundLiteralExpression n)
-                return (int) n.Value;
+                return n.Value;
 
             if (node is BoundUnaryExpression u)
             {
-                var operand = EvaluateExpression(u.Operand);
+                var operand = (int) EvaluateExpression(u.Operand);
 
                 switch (u.OperatorType)
                 {
@@ -41,8 +41,8 @@ namespace Vitae.CodeAnalysis
 
             if (node is BoundBinaryExpression b)
             {
-                var left = EvaluateExpression(b.Left);
-                var right = EvaluateExpression(b.Right);
+                var left = (int) EvaluateExpression(b.Left);
+                var right = (int) EvaluateExpression(b.Right);
                 
                 switch (b.OperatorType) {
                     case BoundBinaryOperatorType.Addition:
