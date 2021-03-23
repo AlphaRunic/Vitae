@@ -1,4 +1,5 @@
 using System;
+using Vitae.CodeAnalysis.Syntax;
 
 namespace Vitae.CodeAnalysis
 {

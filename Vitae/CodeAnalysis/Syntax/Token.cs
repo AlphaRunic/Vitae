@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Vitae.CodeAnalysis {
+namespace Vitae.CodeAnalysis.Syntax {
     public sealed class Token : SyntaxNode {
         public override SyntaxType Type { get; }
         public int Position { get; }

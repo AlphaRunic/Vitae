@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Vitae.CodeAnalysis {
+namespace Vitae.CodeAnalysis.Syntax {
     internal sealed class Parser {
         private readonly Token[] _tokens;
 

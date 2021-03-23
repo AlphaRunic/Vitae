@@ -2,6 +2,7 @@
 using System.Linq;
 
 using Vitae.CodeAnalysis;
+using Vitae.CodeAnalysis.Syntax;
 
 namespace Vitae
 {

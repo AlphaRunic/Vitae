@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Vitae.CodeAnalysis {
+namespace Vitae.CodeAnalysis.Syntax {
     internal sealed class Lexer {
         private readonly string _text;
         private int _pos;

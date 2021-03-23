@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Vitae.CodeAnalysis
+namespace Vitae.CodeAnalysis.Syntax
 {
     public sealed class ParenthesizedExpression : ExpressionSyntax
     {

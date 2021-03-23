@@ -1,4 +1,4 @@
-namespace Vitae.CodeAnalysis
+namespace Vitae.CodeAnalysis.Syntax
 {
     public abstract class ExpressionSyntax : SyntaxNode
     {
