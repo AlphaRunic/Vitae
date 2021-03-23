@@ -2,7 +2,7 @@ using System;
 
 namespace Vitae.CodeAnalysis
 {
-    public class Evaluator
+    public sealed class Evaluator
     {
         private readonly ExpressionSyntax _root;
 
@@ -18,7 +18,7 @@ namespace Vitae.CodeAnalysis
 
         private int EvaluateExpression(ExpressionSyntax node)
         {
-            if (node is NumberExpression n)
+            if (node is LiteralExpression n)
                 return (int) n.Token.Value;
 
             if (node is BinaryExpression b)

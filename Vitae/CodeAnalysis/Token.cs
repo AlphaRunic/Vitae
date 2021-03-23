@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Vitae.CodeAnalysis {
-    public class Token : SyntaxNode {
+    public sealed class Token : SyntaxNode {
+        public override SyntaxType Type { get; }
         public int Position { get; }
         public string Text { get; }
         public object Value { get; }
@@ -18,7 +19,5 @@ namespace Vitae.CodeAnalysis {
         {
             return Enumerable.Empty<SyntaxNode>();
         }
-
-        public override SyntaxType Type { get; }
     }
 }

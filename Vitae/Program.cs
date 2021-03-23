@@ -5,11 +5,12 @@ using Vitae.CodeAnalysis;
 
 namespace Vitae
 {
-    public class Program
+    internal static class Program
     {
-        public static void Main(string[] args)
+        private static void Main(string[] args)
         {
             bool showTree = false;
+
             while (true)
             {
                 Console.Write("Vitae >> ");
@@ -23,20 +24,23 @@ namespace Vitae
                     Console.WriteLine(showTree ? "Showing parse trees." : "Not showing parse trees.");
                     continue;
                 }
+                else if (line == "#cls")
+                {
+                    Console.Clear();
+                    continue;
+                }
 
                 SyntaxTree syntaxTree = SyntaxTree.Parse(line);
                 
                 if (showTree)
                 {
-                    ConsoleColor color = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     PrettyPrint(syntaxTree.Root);
-                    Console.ForegroundColor = color;
+                    Console.ResetColor();
                 }
 
                 if (syntaxTree.Diagnostics.Any())
                 {
-                    ConsoleColor color = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     
                     foreach (var diagnostic in syntaxTree.Diagnostics)
@@ -44,7 +48,7 @@ namespace Vitae
                         Console.WriteLine(diagnostic);
                     }
 
-                    Console.ForegroundColor = color;
+                    Console.ResetColor();
                 }
                 else
                 {
@@ -68,7 +72,7 @@ namespace Vitae
 
             Console.WriteLine();
 
-            indent += "    ";
+            indent += "   ";
 
             foreach (var child in node.GetChildren())
                 PrettyPrint(child, indent);

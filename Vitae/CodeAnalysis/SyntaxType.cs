@@ -2,6 +2,7 @@ namespace Vitae.CodeAnalysis {
     public enum SyntaxType {
         Invalid,
         EOF,
+
         Number,
         Whitespace,
         Plus,
@@ -12,6 +13,7 @@ namespace Vitae.CodeAnalysis {
         Power,
         OpenParen,
         ClosedParen,
+        
         NumberExpression,
         BinaryExpression,
         ParenthesizedExpression

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Vitae.CodeAnalysis
 {
-    public sealed class NumberExpression : ExpressionSyntax
+    public sealed class LiteralExpression : ExpressionSyntax
     {
-        public NumberExpression(Token token)
+        public LiteralExpression(Token token)
         {
             Token = token;
         }

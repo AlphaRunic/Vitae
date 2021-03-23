@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 namespace Vitae.CodeAnalysis {
-    public class Parser {
+    internal sealed class Parser {
         private readonly Token[] _tokens;
 
         private List<string> _diagnostics = new List<string>();
@@ -43,7 +43,7 @@ namespace Vitae.CodeAnalysis {
             return current;
         }
 
-        private Token Match(SyntaxType type)
+        private Token MatchToken(SyntaxType type)
         {
             if (Current.Type == type)
                 return NextToken();
@@ -52,16 +52,16 @@ namespace Vitae.CodeAnalysis {
             return new Token(type, Current.Position, null, null);
         }
 
+        public SyntaxTree Parse()
+        {
+            var expr = ParseExpression();
+            var eofToken = MatchToken(SyntaxType.EOF);
+            return new SyntaxTree(_diagnostics, expr, eofToken);
+        }
+
         private ExpressionSyntax ParseExpression()
         {
             return ParseTerm();
-        }
-
-        public SyntaxTree Parse()
-        {
-            var expr = ParseTerm();
-            var eofToken = Match(SyntaxType.EOF);
-            return new SyntaxTree(_diagnostics, expr, eofToken);
         }
 
         private ExpressionSyntax ParseTerm()
@@ -99,12 +99,12 @@ namespace Vitae.CodeAnalysis {
             {
                 var left = NextToken();
                 var expr = ParseExpression();
-                var right = Match(SyntaxType.ClosedParen);
+                var right = MatchToken(SyntaxType.ClosedParen);
                 return new ParenthesizedExpression(left, expr, right);
             }
 
-            var number = Match(SyntaxType.Number);
-            return new NumberExpression(number);
+            var number = MatchToken(SyntaxType.Number);
+            return new LiteralExpression(number);
         }
     }
 }
