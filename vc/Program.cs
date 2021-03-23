@@ -1,44 +1,27 @@
 ﻿using System;
 
 namespace vc {
-    class Program {
+    public class Program {
         static void Main(string[] args) {
             while(true) {
                 Console.Write("vitae >> ");
                 var line = Console.ReadLine();
                 if (string.IsNullOrEmpty(line))
                     return;
-
-                // if (line == "1 + 2 * 3")
-                //     Console.WriteLine("7");
-                // else
-                //     Console.WriteLine("Error: Invalid expression.");
+                
+                Lexer lexer = new Lexer(line);
+                while (true) {
+                    Token token = lexer.NextToken();
+                    if (token.Type == SyntaxType.EOF)
+                        break;
+                    
+                    Console.Write($"{token.Type}: '{token.Text}' | Value: ");
+                    if (token.Value != null)
+                        Console.Write($" {token.Value}");
+                    
+                    Console.WriteLine();
+                }
             }
-        }
-    }
-
-    class Token {
-
-        public string _type;
-        public id
-
-        public Token(string type, id value) {
-            _type = type;
-            _value = value;
-        }
-    }
-
-    class Lexer {
-
-        private readonly string _text;
-        private int _pos;
-
-        public Lexer(string text) {
-            _text = text;
-        }
-
-        public Token NextToken() {
-
         }
     }
 }
