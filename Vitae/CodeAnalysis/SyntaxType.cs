@@ -14,7 +14,7 @@ namespace Vitae.CodeAnalysis {
         OpenParen,
         ClosedParen,
         
-        NumberExpression,
+        LiteralExpression,
         BinaryExpression,
         ParenthesizedExpression
     }

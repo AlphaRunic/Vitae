@@ -9,7 +9,7 @@ namespace Vitae.CodeAnalysis
             Token = token;
         }
 
-        public override SyntaxType Type => SyntaxType.NumberExpression;
+        public override SyntaxType Type => SyntaxType.LiteralExpression;
         public Token Token { get; }
 
         public override IEnumerable<SyntaxNode> GetChildren()
