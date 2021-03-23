@@ -1,15 +1,16 @@
 using System;
+using Vitae.CodeAnalysis.Binding;
 using Vitae.CodeAnalysis.Syntax;
 
 namespace Vitae.CodeAnalysis
 {
-    public sealed class Evaluator
+    internal sealed class Evaluator
     {
-        private readonly ExpressionSyntax _root;
+        private readonly BoundExpression _root;
 
-        public Evaluator(ExpressionSyntax root)
+        public Evaluator(BoundExpression root)
         {
-            this._root = root;
+            _root = root;
         }
 
         public int Evaluate()
@@ -17,53 +18,48 @@ namespace Vitae.CodeAnalysis
             return EvaluateExpression(_root);
         }
 
-        private int EvaluateExpression(ExpressionSyntax node)
+        private int EvaluateExpression(BoundExpression node)
         {
-            if (node is LiteralExpression n)
-                return (int) n.Token.Value;
+            if (node is BoundLiteralExpression n)
+                return (int) n.Value;
 
-            if (node is UnaryExpression u)
+            if (node is BoundUnaryExpression u)
             {
                 var operand = EvaluateExpression(u.Operand);
 
-                switch (u.OperatorToken.Type)
+                switch (u.OperatorType)
                 {
-                    case SyntaxType.Plus:
+                    case BoundUnaryOperatorType.Identity:
                         return (int) MathF.Abs(operand);
-                    case SyntaxType.Minus:
+                    case BoundUnaryOperatorType.Negation:
                         return -operand;
                         
                     default:
-                        throw new Exception($"unexpected unary operator {u.OperatorToken.Type}");
+                        throw new Exception($"unexpected unary operator {u.OperatorType}");
                 }
             }
 
-            if (node is BinaryExpression b)
+            if (node is BoundBinaryExpression b)
             {
                 var left = EvaluateExpression(b.Left);
                 var right = EvaluateExpression(b.Right);
                 
-                switch (b.OperatorToken.Type) {
-                    case SyntaxType.Plus:
+                switch (b.OperatorType) {
+                    case BoundBinaryOperatorType.Addition:
                         return left + right;
-                    case SyntaxType.Minus:
+                    case BoundBinaryOperatorType.Subtraction:
                         return left - right;
-                    case SyntaxType.Multiply:
+                    case BoundBinaryOperatorType.Multiplication:
                         return left * right;
-                    case SyntaxType.Divide:
+                    case BoundBinaryOperatorType.Division:
                         return left / right;
-                    case SyntaxType.Power:
+                    case BoundBinaryOperatorType.Exponentation:
                         return (int) MathF.Pow(left, right);
-                    case SyntaxType.Modulo:
+                    case BoundBinaryOperatorType.Modulus:
                         return left % right;
                     default:
-                        throw new Exception($"unexpected binary operator {b.OperatorToken.Type}");
+                        throw new Exception($"unexpected binary operator {b.OperatorType}");
                 }
-            }
-
-            if (node is ParenthesizedExpression p)
-            {
-                return EvaluateExpression(p.Expression);
             }
 
             throw new Exception($"unexpected node {node.Type}");

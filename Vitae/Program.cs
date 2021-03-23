@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Vitae.CodeAnalysis;
+using Vitae.CodeAnalysis.Binding;
 using Vitae.CodeAnalysis.Syntax;
 
 namespace Vitae
@@ -32,6 +34,9 @@ namespace Vitae
                 }
 
                 SyntaxTree syntaxTree = SyntaxTree.Parse(line);
+                Binder binder= new Binder();
+                BoundExpression boundExpression = binder.BindExpression(syntaxTree.Root);
+                var diagnostics = syntaxTree.Diagnostics.Concat(binder.Diagnostics).ToArray();
                 
                 if (showTree)
                 {
@@ -40,11 +45,11 @@ namespace Vitae
                     Console.ResetColor();
                 }
 
-                if (syntaxTree.Diagnostics.Any())
+                if (diagnostics.Any())
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     
-                    foreach (var diagnostic in syntaxTree.Diagnostics)
+                    foreach (var diagnostic in diagnostics)
                     {
                         Console.WriteLine(diagnostic);
                     }
@@ -53,7 +58,7 @@ namespace Vitae
                 }
                 else
                 {
-                    var eval = new Evaluator(syntaxTree.Root);
+                    Evaluator eval = new Evaluator(boundExpression);
                     var res = eval.Evaluate();
                     Console.WriteLine(res);
                 }
