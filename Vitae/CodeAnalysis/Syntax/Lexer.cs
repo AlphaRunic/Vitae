@@ -1,24 +1,31 @@
 using System.Collections.Generic;
 
-namespace Vitae.CodeAnalysis.Syntax {
-    internal sealed class Lexer {
+namespace Vitae.CodeAnalysis.Syntax
+{
+    internal sealed class Lexer
+    {
         private readonly string _text;
         private int _pos;
         private List<string> _diagnostics = new List<string>();
 
-        public Lexer(string text) {
+        public Lexer(string text)
+        {
             _text = text;
         }
 
         public IEnumerable<string> Diagnostics => _diagnostics;
 
-        private char Current {
-            get {
-                if (_pos >= _text.Length)
-                    return '\0';
+        private char Current => Peek(0);
+        private char LookAhead => Peek(1);
 
-                return _text[_pos];
-            }
+        private char Peek(int offset)
+        {
+            int index = _pos + offset;
+
+            if (index >= _text.Length)
+                return '\0';
+
+            return _text[_pos];
         }
 
         private void Next() {
@@ -85,6 +92,14 @@ namespace Vitae.CodeAnalysis.Syntax {
                     return new Token(SyntaxType.OpenParen, _pos++, "(", null);
                 case ')':
                     return new Token(SyntaxType.ClosedParen, _pos++, ")", null);
+
+                case '!':
+                    return new Token(SyntaxType.Bang, _pos++, "!", null);
+                case '&':
+                    return new Token(SyntaxType.Ampersand, _pos++ , "&", null);
+                case '|':
+                    return new Token(SyntaxType.Pipe, _pos++ , "|", null);
+
 
                 default:
                     _diagnostics.Add($"Error: bad character input: {Current}");

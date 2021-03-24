@@ -15,6 +15,9 @@ namespace Vitae.CodeAnalysis.Syntax
         Power,
         OpenParen,
         ClosedParen,
+        Bang,
+        Ampersand,
+        Pipe,
         Identifier,
         
         LiteralExpression,

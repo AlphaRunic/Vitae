@@ -7,6 +7,8 @@ namespace Vitae.CodeAnalysis.Binding
         Multiplication,
         Division,
         Exponentation,
-        Modulus
+        Modulus,
+        LogicalOr,
+        LogicalAnd
     }
 }

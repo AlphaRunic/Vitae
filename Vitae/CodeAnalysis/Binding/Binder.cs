@@ -62,44 +62,62 @@ namespace Vitae.CodeAnalysis.Binding
 
         private BoundUnaryOperatorType? BindUnaryOperatorType(SyntaxType type, Type operandType)
         {
-            if (operandType != typeof(int))
-                return null;
-
-            switch (type)
+            if (operandType == typeof(int))
             {
-                case SyntaxType.Plus:
-                    return BoundUnaryOperatorType.Identity;
-                case SyntaxType.Minus:
-                    return BoundUnaryOperatorType.Negation;
-                
-                default:
-                    throw new Exception($"unexpected unary operator {type}");
+                switch (type)
+                {
+                    case SyntaxType.Plus:
+                        return BoundUnaryOperatorType.Identity;
+                    case SyntaxType.Minus:
+                        return BoundUnaryOperatorType.Negation;
+                }
             }
+
+            if (operandType == typeof(bool))
+            {
+                switch (type)
+                {
+                    case SyntaxType.Bang:
+                        return BoundUnaryOperatorType.LogicalNegation;
+                }
+            }
+
+            return null;
         }
 
         private BoundBinaryOperatorType? BindBinaryOperatorType(SyntaxType type, Type leftType, Type rightType)
         {
-            if (leftType != typeof(int) || rightType != typeof(int))
-                return null;
-
-            switch (type)
+            if (leftType == typeof(int) && rightType == typeof(int))
             {
-                case SyntaxType.Plus:
-                    return BoundBinaryOperatorType.Addition;
-                case SyntaxType.Minus:
-                    return BoundBinaryOperatorType.Subtraction;
-                case SyntaxType.Multiply:
-                    return BoundBinaryOperatorType.Multiplication;
-                case SyntaxType.Divide:
-                    return BoundBinaryOperatorType.Division;
-                case SyntaxType.Power:
-                    return BoundBinaryOperatorType.Exponentation;
-                case SyntaxType.Modulo:
-                    return BoundBinaryOperatorType.Modulus;
-                
-                default:
-                    throw new Exception($"unexpected binary operator {type}");
+                switch (type)
+                {
+                    case SyntaxType.Plus:
+                        return BoundBinaryOperatorType.Addition;
+                    case SyntaxType.Minus:
+                        return BoundBinaryOperatorType.Subtraction;
+                    case SyntaxType.Multiply:
+                        return BoundBinaryOperatorType.Multiplication;
+                    case SyntaxType.Divide:
+                        return BoundBinaryOperatorType.Division;
+                    case SyntaxType.Power:
+                        return BoundBinaryOperatorType.Exponentation;
+                    case SyntaxType.Modulo:
+                        return BoundBinaryOperatorType.Modulus;
+                }
             }
+
+            if (leftType == typeof(bool) && rightType == typeof(bool))
+            {
+                switch (type)
+                {
+                    case SyntaxType.Ampersand:
+                        return BoundBinaryOperatorType.LogicalAnd;
+                    case SyntaxType.Pipe:
+                        return BoundBinaryOperatorType.LogicalOr;
+                }
+            }
+
+            return null;
         }
 
         private BoundExpression BindLiteralExpression(LiteralExpression syntax)

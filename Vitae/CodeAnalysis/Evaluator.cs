@@ -25,14 +25,16 @@ namespace Vitae.CodeAnalysis
 
             if (node is BoundUnaryExpression u)
             {
-                var operand = (int) EvaluateExpression(u.Operand);
+                var operand = EvaluateExpression(u.Operand);
 
                 switch (u.OperatorType)
                 {
                     case BoundUnaryOperatorType.Identity:
-                        return (int) MathF.Abs(operand);
+                        return (int) MathF.Abs((int) operand);
                     case BoundUnaryOperatorType.Negation:
-                        return -operand;
+                        return -(int) operand;
+                    case BoundUnaryOperatorType.LogicalNegation:
+                        return !(bool) operand;
                         
                     default:
                         throw new Exception($"unexpected unary operator {u.OperatorType}");
@@ -41,22 +43,28 @@ namespace Vitae.CodeAnalysis
 
             if (node is BoundBinaryExpression b)
             {
-                var left = (int) EvaluateExpression(b.Left);
-                var right = (int) EvaluateExpression(b.Right);
+                var left = EvaluateExpression(b.Left);
+                var right = EvaluateExpression(b.Right);
                 
                 switch (b.OperatorType) {
                     case BoundBinaryOperatorType.Addition:
-                        return left + right;
+                        return (int) left + (int) right;
                     case BoundBinaryOperatorType.Subtraction:
-                        return left - right;
+                        return (int) left - (int) right;
                     case BoundBinaryOperatorType.Multiplication:
-                        return left * right;
+                        return (int) left * (int) right;
                     case BoundBinaryOperatorType.Division:
-                        return left / right;
+                        return (int) left / (int) right;
                     case BoundBinaryOperatorType.Exponentation:
-                        return (int) MathF.Pow(left, right);
+                        return (int) MathF.Pow((int) left, (int) right);
                     case BoundBinaryOperatorType.Modulus:
-                        return left % right;
+                        return (int) left % (int) right;
+
+                    case BoundBinaryOperatorType.LogicalAnd:
+                        return (bool) left && (bool) right;
+                    case BoundBinaryOperatorType.LogicalOr:
+                        return (bool) left || (bool) right;
+
                     default:
                         throw new Exception($"unexpected binary operator {b.OperatorType}");
                 }
