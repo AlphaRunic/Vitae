@@ -47,15 +47,31 @@ namespace Vitae
                 }
 
                 if (diagnostics.Any())
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    
+                {   
                     foreach (var diagnostic in diagnostics)
                     {
+                        Console.WriteLine();
+
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine(diagnostic);
+                        Console.ResetColor();
+
+                        string prefix = line.Substring(0, diagnostic.Span.Start);
+                        string error = line.Substring(diagnostic.Span.Start, diagnostic.Span.Length);
+                        string suffix = line.Substring(diagnostic.Span.End);
+
+                        Console.Write("    ");
+                        Console.Write(prefix);
+
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.Write(error);
+                        Console.ResetColor();
+
+                        Console.Write(suffix);
+                        Console.WriteLine();
                     }
 
-                    Console.ResetColor();
+                    Console.WriteLine();
                 }
                 else
                 {

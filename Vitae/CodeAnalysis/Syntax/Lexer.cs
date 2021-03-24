@@ -6,14 +6,14 @@ namespace Vitae.CodeAnalysis.Syntax
     {
         private readonly string _text;
         private int _pos;
-        private List<string> _diagnostics = new List<string>();
+        private DiagnosticBag _diagnostics = new DiagnosticBag();
 
         public Lexer(string text)
         {
             _text = text;
         }
 
-        public IEnumerable<string> Diagnostics => _diagnostics;
+        public DiagnosticBag Diagnostics => _diagnostics;
 
         private char Current => Peek(0);
         private char LookAhead => Peek(1);
@@ -33,27 +33,25 @@ namespace Vitae.CodeAnalysis.Syntax
         }
 
         public Token Lex() {
+            var start = _pos;
+            
             if (_pos >= _text.Length) {
                 return new Token(SyntaxType.EOF, _pos, "\0", null);
             }
 
             if (char.IsDigit(Current)) {
-                var start = _pos;
-
                 while(char.IsDigit(Current))
                     Next();
 
                 var length = _pos - start;
                 var text = _text.Substring(start, length);
                 if (!int.TryParse(text, out var value))
-                    _diagnostics.Add($"Error: the number {_text} isn't a valid Int32");
+                    _diagnostics.ReportInvalidNumber(new TextSpan(start, length), _text, typeof(int));
 
                 return new Token(SyntaxType.Number, start, text, value);
             }
 
             if (char.IsWhiteSpace(Current)) {
-                var start = _pos;
-
                 while(char.IsWhiteSpace(Current))
                     Next();
 
@@ -64,8 +62,6 @@ namespace Vitae.CodeAnalysis.Syntax
 
             if (char.IsLetter(Current))
             {
-                var start = _pos;
-
                 while(char.IsLetter(Current))
                     Next();
 
@@ -100,19 +96,28 @@ namespace Vitae.CodeAnalysis.Syntax
                 case '=':
                 {
                     if (LookAhead == '=')
-                        return new Token(SyntaxType.EqualTo, _pos += 2, "==", null);
+                    {
+                        _pos += 2;
+                        return new Token(SyntaxType.EqualTo, start, "==", null);
+                    }
                     break;
                 }
                 case '!':
                 {
                     if (LookAhead == '=')
-                        return new Token(SyntaxType.NotEqualTo, _pos += 2, "!=", null);
+                    {
+                        _pos += 2;
+                        return new Token(SyntaxType.NotEqualTo, start, "!=", null);
+                    }
                     else
-                        return new Token(SyntaxType.Bang, _pos++, "!", null);
+                    {
+                        _pos += 1;
+                        return new Token(SyntaxType.Bang, start, "!", null);
+                    }
                 }                    
             }
 
-            _diagnostics.Add($"Error: bad character input: {Current}");
+            _diagnostics.ReportInvalidCharacter(_pos, Current);
             return new Token(SyntaxType.Invalid, _pos++, _text.Substring(_pos - 1, 1), null);  
         }
     }

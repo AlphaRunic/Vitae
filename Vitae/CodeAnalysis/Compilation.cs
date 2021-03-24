@@ -25,7 +25,7 @@ namespace Vitae.CodeAnalysis
 
             var eval = new Evaluator(boundExpression);
             var value = eval.Evaluate();
-            return new EvaluationResult(Array.Empty<string>(), value);
+            return new EvaluationResult(Array.Empty<Diagnostic>(), value);
         }
     }
 }

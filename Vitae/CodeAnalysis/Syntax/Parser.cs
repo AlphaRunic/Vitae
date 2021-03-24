@@ -4,14 +4,14 @@ namespace Vitae.CodeAnalysis.Syntax {
     internal sealed class Parser {
         private readonly Token[] _tokens;
 
-        private List<string> _diagnostics = new List<string>();
+        private DiagnosticBag _diagnostics = new DiagnosticBag();
         private int _pos;
 
         public Parser(string text) {
             var tokens = new List<Token>(); 
-
             var lexer = new Lexer(text);
             Token token;
+            
             do {
                 token = lexer.Lex();
 
@@ -24,7 +24,7 @@ namespace Vitae.CodeAnalysis.Syntax {
             _diagnostics.AddRange(lexer.Diagnostics);
         }
 
-        public IEnumerable<string> Diagnostics => _diagnostics;
+        public DiagnosticBag Diagnostics => _diagnostics;
 
         private Token Peek(int offset) {
             var index = _pos + offset;
@@ -48,7 +48,7 @@ namespace Vitae.CodeAnalysis.Syntax {
             if (Current.Type == type)
                 return NextToken();
 
-            _diagnostics.Add($"Error: unexpected token <{Current.Type}>, expected <{type}>");
+            _diagnostics.ReportUnexpectedToken(Current.Span, Current.Type, type);
             return new Token(type, Current.Position, null, null);
         }
 
