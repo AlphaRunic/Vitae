@@ -33,10 +33,11 @@ namespace Vitae
                     continue;
                 }
 
-                SyntaxTree syntaxTree = SyntaxTree.Parse(line);
-                Binder binder= new Binder();
-                BoundExpression boundExpression = binder.BindExpression(syntaxTree.Root);
-                var diagnostics = syntaxTree.Diagnostics.Concat(binder.Diagnostics).ToArray();
+                var syntaxTree = SyntaxTree.Parse(line);
+                var compilation = new Compilation(syntaxTree);
+                var result = compilation.Evaluate();
+
+                var diagnostics = result.Diagnostics;
                 
                 if (showTree)
                 {
@@ -58,9 +59,7 @@ namespace Vitae
                 }
                 else
                 {
-                    Evaluator eval = new Evaluator(boundExpression);
-                    var res = eval.Evaluate();
-                    Console.WriteLine(res);
+                    Console.WriteLine(result.Value);
                 }
             }
         }

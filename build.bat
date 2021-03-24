@@ -1,2 +1,7 @@
+@echo off
+title Vitae REPL
+cls
 dotnet build
-.\\Vitae\\bin\\Debug\\netcoreapp3.1\\vc.exe
+echo[ 
+echo[
+dotnet run --project ./vc/vc.csproj

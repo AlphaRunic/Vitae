@@ -1,6 +1,5 @@
 using System;
 using Vitae.CodeAnalysis.Binding;
-using Vitae.CodeAnalysis.Syntax;
 
 namespace Vitae.CodeAnalysis
 {
@@ -30,7 +29,7 @@ namespace Vitae.CodeAnalysis
                 switch (u.Op.Type)
                 {
                     case BoundUnaryOperatorType.Identity:
-                        return (int) MathF.Abs((int) operand);
+                        return (int) Math.Abs((int) operand);
                     case BoundUnaryOperatorType.Negation:
                         return -(int) operand;
                     case BoundUnaryOperatorType.LogicalNegation:
@@ -56,7 +55,7 @@ namespace Vitae.CodeAnalysis
                     case BoundBinaryOperatorType.Division:
                         return (int) left / (int) right;
                     case BoundBinaryOperatorType.Exponentation:
-                        return (int) MathF.Pow((int) left, (int) right);
+                        return (int) Math.Pow((int) left, (int) right);
                     case BoundBinaryOperatorType.Modulus:
                         return (int) left % (int) right;
 

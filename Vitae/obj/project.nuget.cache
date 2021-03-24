@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "GTdnqESrwwCvysmQ9G1h6SiFc2hq9EE/nulTwrXLOtLaDpzG6ZoYNt+6Ecxp7aiKahkhNwefJPMa34bN61jJVA==",
+  "dgSpecHash": "ey7qhb7p4pg+eQ0f9EW1Wxu6lPfs93ZKaiaCRD/L4B/jO2lS9p3X+/CyQ084aS/mOooJB3eFirU5rnY2B15VpQ==",
   "success": true,
-  "projectFilePath": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae\\vc.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae\\Vitae.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dawnv\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\dawnv\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

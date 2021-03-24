@@ -24,6 +24,9 @@ namespace Vitae.CodeAnalysis.Binding
                     return BindUnaryExpression((UnaryExpression) syntax);
                 case SyntaxType.BinaryExpression:
                     return BindBinaryExpression((BinaryExpression) syntax);
+                case SyntaxType.ParenthesizedExpression:
+                    return BindExpression(((ParenthesizedExpression) syntax).Expression);   
+
                 default:
                     throw new Exception($"unexpected syntax {syntax.Type}");
                     
