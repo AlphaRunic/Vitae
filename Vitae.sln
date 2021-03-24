@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vc", "vc\vc.csproj", "{DD2D32EF-548C-4566-9DDC-52B873C54F0E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vitae", "Vitae\Vitae.csproj", "{08225409-1276-4C87-A18C-70F4859A1ECF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{DD2D32EF-548C-4566-9DDC-52B873C54F0E}.Release|x64.Build.0 = Release|Any CPU
 		{DD2D32EF-548C-4566-9DDC-52B873C54F0E}.Release|x86.ActiveCfg = Release|Any CPU
 		{DD2D32EF-548C-4566-9DDC-52B873C54F0E}.Release|x86.Build.0 = Release|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Debug|x64.Build.0 = Debug|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Debug|x86.Build.0 = Debug|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Release|x64.ActiveCfg = Release|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Release|x64.Build.0 = Release|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Release|x86.ActiveCfg = Release|Any CPU
+		{08225409-1276-4C87-A18C-70F4859A1ECF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
