@@ -4,17 +4,17 @@ namespace Vitae.CodeAnalysis.Binding
 {
     internal sealed class BoundBinaryExpression : BoundExpression
     {
-        public BoundBinaryExpression(BoundExpression left, BoundBinaryOperatorType operatorType, BoundExpression right)
+        public BoundBinaryExpression(BoundExpression left, BoundBinaryOperator op, BoundExpression right)
         {
             Left = left;
-            OperatorType = operatorType;
+            Op = op;
             Right = right;
         }
 
         public override Type Type => Left.Type;
         public override BoundNodeType NodeType => BoundNodeType.UnaryExpression;
         public BoundExpression Left { get; }
-        public BoundBinaryOperatorType OperatorType { get; }
+        public BoundBinaryOperator Op { get; }
         public BoundExpression Right { get; }
     }
 }

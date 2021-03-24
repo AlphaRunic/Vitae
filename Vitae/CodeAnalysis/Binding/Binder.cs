@@ -4,7 +4,6 @@ using Vitae.CodeAnalysis.Syntax;
 
 namespace Vitae.CodeAnalysis.Binding
 {
-
     internal sealed class Binder
     {
         private readonly List<string> _diagnostics = new List<string>();
@@ -34,90 +33,30 @@ namespace Vitae.CodeAnalysis.Binding
         private BoundExpression BindUnaryExpression(UnaryExpression syntax)
         {
             var boundOperand = BindExpression(syntax.Operand);
-            var boundOperatorType = BindUnaryOperatorType(syntax.OperatorToken.Type, boundOperand.Type);
+            var boundOperator = BoundUnaryOperator.Bind(syntax.OperatorToken.Type, boundOperand.Type);
 
-            if (boundOperatorType == null)
+            if (boundOperator == null)
             {
                 _diagnostics.Add($"unary operator '{syntax.OperatorToken.Text}' is not defined for type {boundOperand.Type}.");
                 return boundOperand;
             }
 
-            return new BoundUnaryExpression(boundOperatorType.Value, boundOperand);
+            return new BoundUnaryExpression(boundOperator, boundOperand);
         }
 
         private BoundExpression BindBinaryExpression(BinaryExpression syntax)
         {
             var boundLeft = BindExpression(syntax.Left);
             var boundRight = BindExpression(syntax.Right);
-            var boundOperatorType = BindBinaryOperatorType(syntax.OperatorToken.Type, boundLeft.Type, boundRight.Type);
+            var boundOperator = BoundBinaryOperator.Bind(syntax.OperatorToken.Type, boundLeft.Type, boundRight.Type);
 
-            if (boundOperatorType == null)
+            if (boundOperator == null)
             {
                 _diagnostics.Add($"binary operator '{syntax.OperatorToken.Text}' is not defined for types {boundLeft.Type} and {boundRight.Type}.");
                 return boundLeft;
             }
 
-            return new BoundBinaryExpression(boundLeft, boundOperatorType.Value, boundRight);
-        }
-
-        private BoundUnaryOperatorType? BindUnaryOperatorType(SyntaxType type, Type operandType)
-        {
-            if (operandType == typeof(int))
-            {
-                switch (type)
-                {
-                    case SyntaxType.Plus:
-                        return BoundUnaryOperatorType.Identity;
-                    case SyntaxType.Minus:
-                        return BoundUnaryOperatorType.Negation;
-                }
-            }
-
-            if (operandType == typeof(bool))
-            {
-                switch (type)
-                {
-                    case SyntaxType.Bang:
-                        return BoundUnaryOperatorType.LogicalNegation;
-                }
-            }
-
-            return null;
-        }
-
-        private BoundBinaryOperatorType? BindBinaryOperatorType(SyntaxType type, Type leftType, Type rightType)
-        {
-            if (leftType == typeof(int) && rightType == typeof(int))
-            {
-                switch (type)
-                {
-                    case SyntaxType.Plus:
-                        return BoundBinaryOperatorType.Addition;
-                    case SyntaxType.Minus:
-                        return BoundBinaryOperatorType.Subtraction;
-                    case SyntaxType.Multiply:
-                        return BoundBinaryOperatorType.Multiplication;
-                    case SyntaxType.Divide:
-                        return BoundBinaryOperatorType.Division;
-                    case SyntaxType.Power:
-                        return BoundBinaryOperatorType.Exponentation;
-                    case SyntaxType.Modulo:
-                        return BoundBinaryOperatorType.Modulus;
-                }
-            }
-
-            if (leftType == typeof(bool) && rightType == typeof(bool))
-            {
-                switch (type)
-                {
-                    case SyntaxType.Ampersand:
-                        return BoundBinaryOperatorType.LogicalAnd;
-                    case SyntaxType.Pipe:
-                        return BoundBinaryOperatorType.LogicalOr;
-                }
-            }
-
-            return null;
+            return new BoundBinaryExpression(boundLeft, boundOperator, boundRight);
         }
 
         private BoundExpression BindLiteralExpression(LiteralExpression syntax)

@@ -27,7 +27,7 @@ namespace Vitae.CodeAnalysis
             {
                 var operand = EvaluateExpression(u.Operand);
 
-                switch (u.OperatorType)
+                switch (u.Op.Type)
                 {
                     case BoundUnaryOperatorType.Identity:
                         return (int) MathF.Abs((int) operand);
@@ -37,7 +37,7 @@ namespace Vitae.CodeAnalysis
                         return !(bool) operand;
                         
                     default:
-                        throw new Exception($"unexpected unary operator {u.OperatorType}");
+                        throw new Exception($"unexpected unary operator {u.Op}");
                 }
             }
 
@@ -46,7 +46,7 @@ namespace Vitae.CodeAnalysis
                 var left = EvaluateExpression(b.Left);
                 var right = EvaluateExpression(b.Right);
                 
-                switch (b.OperatorType) {
+                switch (b.Op.Type) {
                     case BoundBinaryOperatorType.Addition:
                         return (int) left + (int) right;
                     case BoundBinaryOperatorType.Subtraction:
@@ -66,7 +66,7 @@ namespace Vitae.CodeAnalysis
                         return (bool) left || (bool) right;
 
                     default:
-                        throw new Exception($"unexpected binary operator {b.OperatorType}");
+                        throw new Exception($"unexpected binary operator {b.Op}");
                 }
             }
 
