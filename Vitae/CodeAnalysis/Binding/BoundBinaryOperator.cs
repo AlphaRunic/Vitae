@@ -10,6 +10,11 @@ namespace Vitae.CodeAnalysis.Binding
         {
         }
 
+        private BoundBinaryOperator(SyntaxType syntaxType, BoundBinaryOperatorType type, Type operandType, Type resultType)
+            : this(syntaxType, type, operandType, operandType, resultType)
+        {
+        }
+
         private BoundBinaryOperator(SyntaxType syntaxType, BoundBinaryOperatorType type, Type leftType, Type rightType, Type resultType)
         {
             SyntaxType = syntaxType;
@@ -33,6 +38,11 @@ namespace Vitae.CodeAnalysis.Binding
             new BoundBinaryOperator(SyntaxType.Divide, BoundBinaryOperatorType.Division, typeof(int)),
             new BoundBinaryOperator(SyntaxType.Power, BoundBinaryOperatorType.Exponentation, typeof(int)),
             new BoundBinaryOperator(SyntaxType.Modulo, BoundBinaryOperatorType.Modulus, typeof(int)),
+
+            new BoundBinaryOperator(SyntaxType.EqualTo, BoundBinaryOperatorType.Equals, typeof(int), typeof(bool)),
+            new BoundBinaryOperator(SyntaxType.NotEqualTo, BoundBinaryOperatorType.NotEquals, typeof(int), typeof(bool)),
+            new BoundBinaryOperator(SyntaxType.EqualTo, BoundBinaryOperatorType.Equals, typeof(bool)),
+            new BoundBinaryOperator(SyntaxType.NotEqualTo, BoundBinaryOperatorType.NotEquals, typeof(bool)),
 
             new BoundBinaryOperator(SyntaxType.Ampersand, BoundBinaryOperatorType.LogicalAnd, typeof(bool)),
             new BoundBinaryOperator(SyntaxType.Pipe, BoundBinaryOperatorType.LogicalOr, typeof(bool))

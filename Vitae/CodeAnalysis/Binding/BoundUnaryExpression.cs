@@ -10,7 +10,7 @@ namespace Vitae.CodeAnalysis.Binding
             Operand = operand;
         }
 
-        public override Type Type => Operand.Type;
+        public override Type Type => Op.ResultType;
         public override BoundNodeType NodeType => BoundNodeType.UnaryExpression;
         public BoundUnaryOperator Op { get; }
         public BoundExpression Operand { get; }

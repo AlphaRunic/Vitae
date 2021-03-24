@@ -9,6 +9,8 @@ namespace Vitae.CodeAnalysis.Binding
         Exponentation,
         Modulus,
         LogicalOr,
-        LogicalAnd
+        LogicalAnd,
+        Equals,
+        NotEquals
     }
 }

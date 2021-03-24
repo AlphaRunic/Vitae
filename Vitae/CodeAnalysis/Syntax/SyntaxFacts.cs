@@ -11,7 +11,7 @@ namespace Vitae.CodeAnalysis.Syntax
                 case SyntaxType.Plus:
                 case SyntaxType.Minus:
                 case SyntaxType.Bang:
-                    return 6;
+                    return 7;
                 
                 default:
                     return 0;
@@ -23,15 +23,19 @@ namespace Vitae.CodeAnalysis.Syntax
             switch (type)
             {
                 case SyntaxType.Power:
-                    return 5;
+                    return 6;
 
                 case SyntaxType.Modulo:
                 case SyntaxType.Multiply:
                 case SyntaxType.Divide:
-                    return 4;
+                    return 5;
 
                 case SyntaxType.Plus:
                 case SyntaxType.Minus:
+                    return 4;
+
+                case SyntaxType.EqualTo:
+                case SyntaxType.NotEqualTo:
                     return 3;
 
                 case SyntaxType.Ampersand:

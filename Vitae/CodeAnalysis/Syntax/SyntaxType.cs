@@ -18,6 +18,8 @@ namespace Vitae.CodeAnalysis.Syntax
         Bang,
         Ampersand,
         Pipe,
+        EqualTo,
+        NotEqualTo,
         Identifier,
         
         LiteralExpression,

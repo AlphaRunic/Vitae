@@ -11,7 +11,7 @@ namespace Vitae.CodeAnalysis.Binding
             Right = right;
         }
 
-        public override Type Type => Left.Type;
+        public override Type Type => Op.ResultType;
         public override BoundNodeType NodeType => BoundNodeType.UnaryExpression;
         public BoundExpression Left { get; }
         public BoundBinaryOperator Op { get; }

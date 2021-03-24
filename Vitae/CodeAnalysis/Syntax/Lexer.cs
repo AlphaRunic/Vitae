@@ -93,18 +93,27 @@ namespace Vitae.CodeAnalysis.Syntax
                 case ')':
                     return new Token(SyntaxType.ClosedParen, _pos++, ")", null);
 
-                case '!':
-                    return new Token(SyntaxType.Bang, _pos++, "!", null);
                 case '&':
                     return new Token(SyntaxType.Ampersand, _pos++ , "&", null);
                 case '|':
                     return new Token(SyntaxType.Pipe, _pos++ , "|", null);
-
-
-                default:
-                    _diagnostics.Add($"Error: bad character input: {Current}");
-                    return new Token(SyntaxType.Invalid, _pos++, _text.Substring(_pos - 1, 1), null);  
+                case '=':
+                {
+                    if (LookAhead == '=')
+                        return new Token(SyntaxType.EqualTo, _pos += 2, "==", null);
+                    break;
+                }
+                case '!':
+                {
+                    if (LookAhead == '=')
+                        return new Token(SyntaxType.NotEqualTo, _pos += 2, "!=", null);
+                    else
+                        return new Token(SyntaxType.Bang, _pos++, "!", null);
+                }                    
             }
+
+            _diagnostics.Add($"Error: bad character input: {Current}");
+            return new Token(SyntaxType.Invalid, _pos++, _text.Substring(_pos - 1, 1), null);  
         }
     }
 }

@@ -65,6 +65,11 @@ namespace Vitae.CodeAnalysis
                     case BoundBinaryOperatorType.LogicalOr:
                         return (bool) left || (bool) right;
 
+                    case BoundBinaryOperatorType.Equals:
+                        return Equals(left, right);
+                    case BoundBinaryOperatorType.NotEquals:
+                        return !Equals(left, right);
+
                     default:
                         throw new Exception($"unexpected binary operator {b.Op}");
                 }
