@@ -1,15 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Vitae.CodeAnalysis.Syntax;
 
 namespace Vitae.CodeAnalysis.Binding
 {
+
     internal sealed class Binder
     {
         private readonly DiagnosticBag _diagnostics = new DiagnosticBag();
+        private readonly Dictionary<VariableSymbol, object> _variables;
 
         public Binder()
         {
+        }
+
+        public Binder(Dictionary<VariableSymbol, object> variables)
+        {
+            _variables = variables;
         }
 
         public DiagnosticBag Diagnostics => _diagnostics;
@@ -18,19 +26,57 @@ namespace Vitae.CodeAnalysis.Binding
         {
             switch (syntax.Type)
             {
+                case SyntaxType.ParenthesizedExpression:
+                    return BindParenthesizedExpression(((ParenthesizedExpression) syntax));
                 case SyntaxType.LiteralExpression:
                     return BindLiteralExpression((LiteralExpression) syntax);
+                case SyntaxType.NameExpression:
+                    return BindNameExpression((NameExpression) syntax);
+                case SyntaxType.AssignmentExpression:
+                    return BindAssignmentExpression((AssignmentExpression) syntax); 
                 case SyntaxType.UnaryExpression:
                     return BindUnaryExpression((UnaryExpression) syntax);
                 case SyntaxType.BinaryExpression:
-                    return BindBinaryExpression((BinaryExpression) syntax);
-                case SyntaxType.ParenthesizedExpression:
-                    return BindExpression(((ParenthesizedExpression) syntax).Expression);   
+                    return BindBinaryExpression((BinaryExpression) syntax); 
 
                 default:
                     throw new Exception($"unexpected syntax {syntax.Type}");
                     
             }
+        }
+
+        private BoundExpression BindAssignmentExpression(AssignmentExpression syntax)
+        {
+            string name = syntax.Identifier.Text;
+            BoundExpression boundExpression = BindExpression(syntax.Expression);
+
+            VariableSymbol existingVariable = _variables.Keys.FirstOrDefault(v => v.Name == name);
+            if (existingVariable != null)
+                _variables.Remove(existingVariable);
+
+            VariableSymbol variable = new VariableSymbol(name, boundExpression.Type);
+            _variables[variable] = null;
+
+            return new BoundAssignmentExpression(variable, boundExpression);
+        }
+
+        private BoundExpression BindNameExpression(NameExpression syntax)
+        {
+            string name = syntax.Identifier.Text;
+            VariableSymbol variable = _variables.Keys.FirstOrDefault(v => v.Name == name);
+
+            if (variable == null)
+            {
+                _diagnostics.ReportUndefinedName(syntax.Identifier.Span, name);
+                return new BoundLiteralExpression(0);
+            }
+
+            return new BoundVariableExpression(variable);
+        }
+
+        private BoundExpression BindParenthesizedExpression(ParenthesizedExpression syntax)
+        {
+            return BindExpression(syntax.Expression);
         }
 
         private BoundExpression BindUnaryExpression(UnaryExpression syntax)

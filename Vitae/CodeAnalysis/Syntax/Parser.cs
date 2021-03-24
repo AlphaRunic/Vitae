@@ -59,14 +59,32 @@ namespace Vitae.CodeAnalysis.Syntax {
             return new SyntaxTree(_diagnostics, expr, eofToken);
         }
 
-        private ExpressionSyntax ParseExpression(int parentPrecedence = 0)
+        private ExpressionSyntax ParseExpression()
+        {
+            return ParseAssignmentExpression();
+        }
+
+        private ExpressionSyntax ParseAssignmentExpression()
+        {
+            if (Peek(0).Type == SyntaxType.Identifier && Peek(1).Type == SyntaxType.Assignment)
+            {
+                Token identifier = NextToken();
+                Token operatorToken = NextToken();
+                ExpressionSyntax right = ParseAssignmentExpression();
+                return new AssignmentExpression(identifier, operatorToken, right);
+            }
+
+            return ParseBinaryExpression();
+        }
+
+        private ExpressionSyntax ParseBinaryExpression(int parentPrecedence = 0)
         {
             ExpressionSyntax left;
             var unaryOperatorPrecedence = Current.Type.GetUnaryOperatorPrecedence();
             if (unaryOperatorPrecedence != 0 && unaryOperatorPrecedence >= parentPrecedence)
             {
                 var operatorToken = NextToken();
-                var operand = ParseExpression();
+                var operand = ParseBinaryExpression();
                 left = new UnaryExpression(operatorToken, operand);
             }
             else
@@ -81,7 +99,7 @@ namespace Vitae.CodeAnalysis.Syntax {
                     break;
 
                 var operatorToken = NextToken();
-                var right = ParseExpression(precedence);
+                var right = ParseBinaryExpression(precedence);
                 left = new BinaryExpression(left, operatorToken, right);
             }
 
@@ -110,6 +128,12 @@ namespace Vitae.CodeAnalysis.Syntax {
                         Token keywordToken = NextToken();
                         return new LiteralExpression(keywordToken, true);
                     }
+
+                case SyntaxType.Identifier:
+                {
+                    Token identifier = NextToken();
+                    return new NameExpression(identifier);
+                }
 
                 default:
                     {

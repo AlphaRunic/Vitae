@@ -53,5 +53,11 @@ namespace Vitae.CodeAnalysis
             string msg = $"binary operator '{operatorText}' is not defined for types {leftType} and {rightType}.";
             Report(span, msg);
         }
+
+        public void ReportUndefinedName(TextSpan span, string name)
+        {
+            string msg = $"variable '{name}' doesn't exist.";
+            Report(span, msg);
+        }
     }
 }

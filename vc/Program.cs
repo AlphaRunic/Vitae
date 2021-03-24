@@ -13,6 +13,7 @@ namespace Vitae
         private static void Main(string[] args)
         {
             bool showTree = false;
+            var variables = new Dictionary<VariableSymbol, object>();
 
             while (true)
             {
@@ -35,7 +36,7 @@ namespace Vitae
 
                 var syntaxTree = SyntaxTree.Parse(line);
                 var compilation = new Compilation(syntaxTree);
-                var result = compilation.Evaluate();
+                var result = compilation.Evaluate(variables);
 
                 var diagnostics = result.Diagnostics;
                 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Vitae.CodeAnalysis.Syntax
@@ -25,7 +26,7 @@ namespace Vitae.CodeAnalysis.Syntax
             if (index >= _text.Length)
                 return '\0';
 
-            return _text[_pos];
+            return _text[index];
         }
 
         private void Next() {
@@ -100,7 +101,11 @@ namespace Vitae.CodeAnalysis.Syntax
                         _pos += 2;
                         return new Token(SyntaxType.EqualTo, start, "==", null);
                     }
-                    break;
+                    else
+                    {
+                        _pos += 1;
+                        return new Token(SyntaxType.Assignment, start, "=", null);
+                    }
                 }
                 case '!':
                 {
@@ -114,7 +119,7 @@ namespace Vitae.CodeAnalysis.Syntax
                         _pos += 1;
                         return new Token(SyntaxType.Bang, start, "!", null);
                     }
-                }                    
+                }                
             }
 
             _diagnostics.ReportInvalidCharacter(_pos, Current);

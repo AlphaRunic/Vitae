@@ -2,9 +2,11 @@ namespace Vitae.CodeAnalysis.Syntax
 {
     public enum SyntaxType
     {
+        // Special Tokens
         Invalid,
         EOF,
 
+        // Tokens
         Number,
         Whitespace,
         Plus,
@@ -21,12 +23,17 @@ namespace Vitae.CodeAnalysis.Syntax
         EqualTo,
         NotEqualTo,
         Identifier,
+        Assignment,
         
+        // Expressions
         LiteralExpression,
         BinaryExpression,
         ParenthesizedExpression,
         UnaryExpression,
+        NameExpression,
+        AssignmentExpression,
 
+        // Keywords
         True,
         False
     }
