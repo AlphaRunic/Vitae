@@ -1,5 +1,4 @@
 @echo off
-title Vitae REPL
 cls
 
 dotnet build
