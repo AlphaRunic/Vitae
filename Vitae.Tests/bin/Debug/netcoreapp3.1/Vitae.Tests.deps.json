@@ -10,6 +10,7 @@
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "16.5.0",
           "Vitae": "1.0.0",
+          "XunitXml.TestLogger": "2.0.0",
           "coverlet.collector": "1.2.0",
           "xunit": "2.4.0",
           "xunit.runner.visualstudio": "2.4.0"
@@ -689,6 +690,7 @@
           "Microsoft.NET.Test.Sdk": "16.5.0"
         }
       },
+      "XunitXml.TestLogger/2.0.0": {},
       "Vitae/1.0.0": {
         "runtime": {
           "Vitae.dll": {}
@@ -1051,6 +1053,13 @@
       "sha512": "sha512-3eq5cGXbEJkqW9nwLuXwtxy9B5gMA8i7HW4rN63AhAvy5UvEcQbZnve23wx/oPrkyg/4CbfNhxkBezS0b1oUdQ==",
       "path": "xunit.runner.visualstudio/2.4.0",
       "hashPath": "xunit.runner.visualstudio.2.4.0.nupkg.sha512"
+    },
+    "XunitXml.TestLogger/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OdsXV1esWxrko9qb3cMhhx6+rpbGoQY7it0GKbs4jjrTwwlltOXI7k6/8K65HMRIwcmyhTr1jFibBmNRcC004Q==",
+      "path": "xunitxml.testlogger/2.0.0",
+      "hashPath": "xunitxml.testlogger.2.0.0.nupkg.sha512"
     },
     "Vitae/1.0.0": {
       "type": "project",

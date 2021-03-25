@@ -10,7 +10,7 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
 {
     public class LexerTest
     {
-        [Theory]
+        // [Theory]
         [MemberData(nameof(GetTokensData))]
         public void Lexer_Lexes_Token(SyntaxType type, string text)
         {
@@ -21,7 +21,7 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
             Assert.Equal(text, token.Text);
         }
 
-        [Theory]
+        // [Theory]
         [MemberData(nameof(GetTokenPairsData))]
         public void Lexer_Lexes_TokenPairs(SyntaxType t1Type, string t1Text, SyntaxType t2Type, string t2Text)
         {
@@ -35,7 +35,7 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
             Assert.Equal(tokens[1].Text, t2Text);
         }
 
-        [Theory]
+        // [Theory]
         [MemberData(nameof(GetTokenPairsWithSeparatorData))]
         public void Lexer_Lexes_TokenPairs_WithSeparators(SyntaxType t1Type, string t1Text, SyntaxType separatorType, string separatorText, SyntaxType t2Type, string t2Text)
         {

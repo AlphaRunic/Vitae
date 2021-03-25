@@ -96,3 +96,5 @@ C:\cygwin64\home\dawnv\dev\Vitae\Vitae.Tests\obj\Debug\netcoreapp3.1\Vitae.Tests
 C:\cygwin64\home\dawnv\dev\Vitae\Vitae.Tests\obj\Debug\netcoreapp3.1\Vitae.Tests.genruntimeconfig.cache
 C:\cygwin64\home\dawnv\dev\Vitae\Vitae.Tests\bin\Debug\netcoreapp3.1\Vitae.dll
 C:\cygwin64\home\dawnv\dev\Vitae\Vitae.Tests\bin\Debug\netcoreapp3.1\Vitae.pdb
+C:\cygwin64\home\dawnv\dev\Vitae\Vitae.Tests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestLogger.dll
+C:\cygwin64\home\dawnv\dev\Vitae\Vitae.Tests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter.dll

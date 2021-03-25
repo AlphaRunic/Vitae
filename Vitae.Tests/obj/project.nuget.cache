@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3kK36Ian8tGtxcYV1+uUPscjdXXyFO/m7MRKuCgOc+tlP8cs4ucIjQfaM4pA7WqBaovcmMco+dK5RUGZkg/RAQ==",
+  "dgSpecHash": "wsW37oTYBHMtMZtVaEnato4icTeK0satU8N64jpyEeEtzOGXMN/g2MN5mwRAS3yAHn0N6AjO+xSnH7psZlmJXg==",
   "success": true,
   "projectFilePath": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae.Tests\\Vitae.Tests.csproj",
   "expectedPackageFiles": [
@@ -53,7 +53,8 @@
     "C:\\Users\\dawnv\\.nuget\\packages\\xunit.core\\2.4.0\\xunit.core.2.4.0.nupkg.sha512",
     "C:\\Users\\dawnv\\.nuget\\packages\\xunit.extensibility.core\\2.4.0\\xunit.extensibility.core.2.4.0.nupkg.sha512",
     "C:\\Users\\dawnv\\.nuget\\packages\\xunit.extensibility.execution\\2.4.0\\xunit.extensibility.execution.2.4.0.nupkg.sha512",
-    "C:\\Users\\dawnv\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.0\\xunit.runner.visualstudio.2.4.0.nupkg.sha512"
+    "C:\\Users\\dawnv\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.0\\xunit.runner.visualstudio.2.4.0.nupkg.sha512",
+    "C:\\Users\\dawnv\\.nuget\\packages\\xunitxml.testlogger\\2.0.0\\xunitxml.testlogger.2.0.0.nupkg.sha512"
   ],
   "logs": []
 }

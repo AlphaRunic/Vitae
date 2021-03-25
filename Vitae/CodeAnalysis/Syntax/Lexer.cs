@@ -6,8 +6,12 @@ namespace Vitae.CodeAnalysis.Syntax
     internal sealed class Lexer
     {
         private readonly string _text;
+        private readonly DiagnosticBag _diagnostics = new DiagnosticBag();
+
         private int _pos;
-        private DiagnosticBag _diagnostics = new DiagnosticBag();
+        private int _start;
+        private SyntaxType _type;
+        private object _value;
 
         public Lexer(string text)
         {
@@ -34,96 +38,143 @@ namespace Vitae.CodeAnalysis.Syntax
         }
 
         public Token Lex() {
-            var start = _pos;
+            _start = _pos;
+            _type = SyntaxType.Invalid;
+            _value = null;
             
-            if (_pos >= _text.Length) {
-                return new Token(SyntaxType.EOF, _pos, "\0", null);
-            }
-
-            if (char.IsDigit(Current)) {
-                while(char.IsDigit(Current))
-                    Next();
-
-                var length = _pos - start;
-                var text = _text.Substring(start, length);
-                if (!int.TryParse(text, out var value))
-                    _diagnostics.ReportInvalidNumber(new TextSpan(start, length), _text, typeof(int));
-
-                return new Token(SyntaxType.Number, start, text, value);
-            }
-
-            if (char.IsWhiteSpace(Current)) {
-                while(char.IsWhiteSpace(Current))
-                    Next();
-
-                var length = _pos - start;
-                var text = _text.Substring(start, length);
-                return new Token(SyntaxType.Whitespace, start, text, null);
-            }
-
-            if (char.IsLetter(Current))
-            {
-                while(char.IsLetter(Current))
-                    Next();
-
-                var length = _pos - start;
-                var text = _text.Substring(start, length);
-                var type = SyntaxFacts.GetKeywordType(text);
-                return new Token(type, start, text, null);
-            }
-
             switch(Current) {
-                case '+':
-                    return new Token(SyntaxType.Plus, _pos++, "+", null);
-                case '-':
-                    return new Token(SyntaxType.Minus, _pos++, "-", null);
-                case '*':
-                    return new Token(SyntaxType.Multiply, _pos++, "*", null);
-                case '/':
-                    return new Token(SyntaxType.Divide, _pos++, "/", null);
-                case '%':
-                    return new Token(SyntaxType.Modulo, _pos++, "%", null);
-                case '^':
-                    return new Token(SyntaxType.Power, _pos++, "^", null);
-                case '(':
-                    return new Token(SyntaxType.OpenParen, _pos++, "(", null);
-                case ')':
-                    return new Token(SyntaxType.ClosedParen, _pos++, ")", null);
+                    case '\0':
+                        _type = SyntaxType.EOF;
+                        break;
+                    case '+':
+                        _type = SyntaxType.Plus;
+                        _pos++;
+                        break;
+                    case '-':
+                        _type = SyntaxType.Minus;
+                        _pos++;
+                        break;
+                    case '*':
+                        _type = SyntaxType.Multiply;
+                        _pos++;
+                        break;
+                    case '/':
+                        _type = SyntaxType.Divide;
+                        _pos++;
+                        break;
+                    case '%':
+                        _type = SyntaxType.Modulo;
+                        _pos++;
+                        break;
+                    case '^':
+                        _type = SyntaxType.Power;
+                        _pos++;
+                        break;
+                    case '(':
+                        _type = SyntaxType.OpenParen;
+                        _pos++;
+                        break;
+                    case ')':
+                        _type = SyntaxType.ClosedParen;
+                        _pos++;
+                        break;
 
-                case '&':
-                    return new Token(SyntaxType.Ampersand, _pos++ , "&", null);
-                case '|':
-                    return new Token(SyntaxType.Pipe, _pos++ , "|", null);
-                case '=':
-                {
-                    if (LookAhead == '=')
+                    case '&':
+                        _type = SyntaxType.Ampersand;
+                        _pos++;
+                        break;
+                    case '|':
+                        _type = SyntaxType.Pipe;
+                        _pos++;
+                        break;
+                    case '=':
                     {
-                        _pos += 2;
-                        return new Token(SyntaxType.EqualTo, start, "==", null);
+                        _pos++;
+                        if (Current != '=')
+                            _type = SyntaxType.Assignment;
+                        else
+                        {
+                            _pos++;
+                            _type = SyntaxType.EqualTo; 
+                        }
+                        break;
                     }
-                    else
+                    case '!':
                     {
-                        _pos += 1;
-                        return new Token(SyntaxType.Assignment, start, "=", null);
-                    }
+                        _pos++;
+                        if (Current != '=')
+                            _type = SyntaxType.Bang;
+                        else
+                        {
+                            _pos++;
+                            _type = SyntaxType.NotEqualTo;
+                        }
+                        break;
+                    } 
+
+                    case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
+                        ReadNumber();
+                        break;
+
+                    case ' ': case '\t': case '\n': case '\r':  
+                        ReadWhitespace();
+                        break;
+
+                    default:
+                        if (char.IsLetter(Current))
+                        {
+                            ReadIdentifierOrKeyword();
+                        }
+                        else if (char.IsWhiteSpace(Current))
+                        {
+                            ReadWhitespace();
+                        }
+                        else
+                        {
+                            _diagnostics.ReportInvalidCharacter(_pos, Current);
+                            _pos++;
+                        }
+                        break;
                 }
-                case '!':
-                {
-                    if (LookAhead == '=')
-                    {
-                        _pos += 2;
-                        return new Token(SyntaxType.NotEqualTo, start, "!=", null);
-                    }
-                    else
-                    {
-                        _pos += 1;
-                        return new Token(SyntaxType.Bang, start, "!", null);
-                    }
-                }                
-            }
 
-            _diagnostics.ReportInvalidCharacter(_pos, Current);
-            return new Token(SyntaxType.Invalid, _pos++, _text.Substring(_pos - 1, 1), null);  
+            string text = SyntaxFacts.GetText(_type);
+            int length = _pos - _start;
+            if (text == null)
+                text = _text.Substring(_start, length);
+
+            return new Token(_type, _start, text, _value);
+        }
+
+        private void ReadWhitespace()
+        {
+            while (char.IsWhiteSpace(Current))
+                _pos++;
+
+            _type = SyntaxType.Whitespace;
+        }
+
+        private void ReadNumber()
+        {
+            while (char.IsDigit(Current))
+                _pos++;
+
+            var length = _pos - _start;
+            var text = _text.Substring(_start, length);
+            if (!int.TryParse(text, out var value))
+                _diagnostics.ReportInvalidNumber(new TextSpan(_start, length), _text, typeof(int));
+
+            _value = value;
+            _type = SyntaxType.Number;
+        }
+
+        private void ReadIdentifierOrKeyword()
+        {
+            while (char.IsLetter(Current))
+                _pos++;
+
+            var length = _pos - _start;
+            var text = _text.Substring(_start, length);
+            _type = SyntaxFacts.GetKeywordType(text);
         }
     }
 }
