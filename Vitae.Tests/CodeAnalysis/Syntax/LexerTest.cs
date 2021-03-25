@@ -1,9 +1,10 @@
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using Xunit;
 
 using Vitae.CodeAnalysis.Syntax;
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace Vitae.Tests.CodeAnalysis.Syntax
 {
@@ -15,7 +16,7 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
         {
             var tokens = SyntaxTree.ParseTokens(text);
 
-            Token token = Assert.Single(tokens);
+            var token = Assert.Single(tokens);
             Assert.Equal(type, token.Type);
             Assert.Equal(text, token.Text);
         }
@@ -65,9 +66,9 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
         public static IEnumerable<object[]> GetTokenPairsWithSeparatorData()
         {
             foreach (var t in GetTokenPairsWithSeparator())
-                yield return new object[] { t.t1Type, t.t1Text, t.separatorKind, t.separatorText, t.t2Type, t.t2Text };
+                yield return new object[] { t.t1Type, t.t1Text, t.separatorType, t.separatorText, t.t2Type, t.t2Text };
         }
-        
+
         private static IEnumerable<(SyntaxType type, string text)> GetTokens()
         {
             return new[]
@@ -91,7 +92,7 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
                 (SyntaxType.Number, "1"),
                 (SyntaxType.Number, "123"),
                 (SyntaxType.Identifier, "a"),
-                (SyntaxType.Identifier, "abc")
+                (SyntaxType.Identifier, "abc"),
             };
         }
 
@@ -117,7 +118,7 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
 
             if (t1IsKeyword && t2IsKeyword)
                 return true;
-                
+
             if (t1IsKeyword && t2Type == SyntaxType.Identifier)
                 return true;
 
@@ -139,14 +140,12 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
             if (t1Type == SyntaxType.Assignment && t2Type == SyntaxType.EqualTo)
                 return true;
 
-            // TODO: More cases
-
             return false;
         }
 
         private static IEnumerable<(SyntaxType t1Type, string t1Text, SyntaxType t2Type, string t2Text)> GetTokenPairs()
         {
-            foreach (var t1 in GetTokens())
+            foreach (var t1 in  GetTokens())
             {
                 foreach (var t2 in GetTokens())
                 {
@@ -156,13 +155,13 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
             }
         }
 
-        private static IEnumerable<(SyntaxType t1Type, string t1Text, SyntaxType separatorKind, string separatorText, SyntaxType t2Type, string t2Text)> GetTokenPairsWithSeparator()
+        private static IEnumerable<(SyntaxType t1Type, string t1Text, SyntaxType separatorType, string separatorText, SyntaxType t2Type, string t2Text)> GetTokenPairsWithSeparator()
         {
             foreach (var t1 in GetTokens())
             {
                 foreach (var t2 in GetTokens())
                 {
-                    if (!RequiresSeparator(t1.type, t2.type))
+                    if (RequiresSeparator(t1.type, t2.type))
                     {
                         foreach (var s in GetSeparators())
                             yield return (t1.type, t1.text, s.type, s.text, t2.type, t2.text);
