@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Vitae.CodeAnalysis.Syntax
 {
@@ -59,6 +60,26 @@ namespace Vitae.CodeAnalysis.Syntax
                 
                 default:
                     return SyntaxType.Identifier;
+            }
+        }
+
+        public static IEnumerable<SyntaxType> GetUnaryOperatorTypes()
+        {
+            var types = (SyntaxType[]) Enum.GetValues(typeof(SyntaxType));
+            foreach (var type in types)
+            {
+                if (GetUnaryOperatorPrecedence(type) > 0)
+                    yield return type;
+            }
+        }
+
+        public static IEnumerable<SyntaxType> GetBinaryOperatorTypes()
+        {
+            var types = (SyntaxType[]) Enum.GetValues(typeof(SyntaxType));
+            foreach (var type in types)
+            {
+                if (GetBinaryOperatorPrecedence(type) > 0)
+                    yield return type;
             }
         }
 
