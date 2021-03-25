@@ -55,6 +55,51 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
             }
         }
 
+        [Theory]
+        [MemberData(nameof(GetUnaryOperatorPairsData))]
+        public void Parser_UnaryExpression_HonorsPrecedences(SyntaxType unaryType, SyntaxType binaryType)
+        {
+            int unaryPrecedence = SyntaxFacts.GetUnaryOperatorPrecedence(unaryType);
+            int binaryPrecedence = SyntaxFacts.GetBinaryOperatorPrecedence(binaryType);
+            string unaryText = SyntaxFacts.GetText(unaryType);
+            string binaryText = SyntaxFacts.GetText(binaryType);
+            string text = $"{unaryText} a {binaryText} b";
+            ExpressionSyntax expr = SyntaxTree.Parse(text).Root;
+
+            if (!(unaryPrecedence >= binaryPrecedence))
+            {
+                using (var e = new AssertingEnumerator(expr))
+                {
+                    e.AssertNode(SyntaxType.BinaryExpression);
+                    e.AssertNode(SyntaxType.UnaryExpression);
+                    e.AssertToken(unaryType, unaryText);
+
+                    e.AssertNode(SyntaxType.NameExpression);
+                    e.AssertToken(SyntaxType.Identifier, "a");
+                    e.AssertToken(binaryType, binaryText);
+
+                    e.AssertNode(SyntaxType.NameExpression);
+                    e.AssertToken(SyntaxType.Identifier, "b");
+                }
+            }
+            else
+            {
+                using (var e = new AssertingEnumerator(expr))
+                {
+                    e.AssertNode(SyntaxType.UnaryExpression);
+                    e.AssertToken(unaryType, unaryText);
+
+                    e.AssertNode(SyntaxType.BinaryExpression);
+                    e.AssertNode(SyntaxType.NameExpression);
+                    e.AssertToken(SyntaxType.Identifier, "a");
+                    e.AssertToken(binaryType, binaryText);
+                    
+                    e.AssertNode(SyntaxType.NameExpression);
+                    e.AssertToken(SyntaxType.Identifier, "b");
+                }
+            }
+        }
+
         public static IEnumerable<object[]> GetBinaryOperatorPairsData()
         {
             foreach (var op1 in SyntaxFacts.GetBinaryOperatorTypes())
@@ -62,6 +107,17 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
                 foreach (var op2 in SyntaxFacts.GetBinaryOperatorTypes())
                 {
                     yield return new object[] { op1, op2 };
+                    yield break;
+                }
+            }
+        }
+        public static IEnumerable<object[]> GetUnaryOperatorPairsData()
+        {
+            foreach (var unary in SyntaxFacts.GetUnaryOperatorTypes())
+            {
+                foreach (var binary in SyntaxFacts.GetBinaryOperatorTypes())
+                {
+                    yield return new object[] { unary, binary };
                     yield break;
                 }
             }
