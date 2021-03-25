@@ -34,7 +34,7 @@ namespace Vitae.CodeAnalysis.Syntax
         AssignmentExpression,
 
         // Keywords
-        True,
-        False
+        TrueKeyword,
+        FalseKeyword
     }
 }

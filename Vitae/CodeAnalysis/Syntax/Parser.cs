@@ -118,12 +118,12 @@ namespace Vitae.CodeAnalysis.Syntax {
                         return new ParenthesizedExpression(left, expr, right);
                     }
 
-                case SyntaxType.False:
+                case SyntaxType.FalseKeyword:
                     {
                         Token keywordToken = NextToken();
                         return new LiteralExpression(keywordToken, false);
                     }
-                case SyntaxType.True:
+                case SyntaxType.TrueKeyword:
                     {
                         Token keywordToken = NextToken();
                         return new LiteralExpression(keywordToken, true);

@@ -53,9 +53,9 @@ namespace Vitae.CodeAnalysis.Syntax
             switch (text)
             {
                 case "true":
-                    return SyntaxType.True;
+                    return SyntaxType.TrueKeyword;
                 case "false":
-                    return SyntaxType.False;
+                    return SyntaxType.FalseKeyword;
                 
                 default:
                     return SyntaxType.Identifier;

@@ -21,5 +21,19 @@ namespace Vitae.CodeAnalysis.Syntax
             var parser = new Parser(text);
             return parser.Parse();
         }
+
+        public static IEnumerable<Token> ParseTokens(string text)
+        {
+            Lexer lexer = new Lexer(text);
+            
+            while (true)
+            {
+                Token token = lexer.Lex();
+                if (token.Type == SyntaxType.EOF)
+                    break;
+                
+                yield return token;
+            }
+        }
     }
 }
