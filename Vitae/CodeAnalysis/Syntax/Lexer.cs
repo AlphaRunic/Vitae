@@ -5,8 +5,8 @@ namespace Vitae.CodeAnalysis.Syntax
 {
     internal sealed class Lexer
     {
-        private readonly string _text;
         private readonly DiagnosticBag _diagnostics = new DiagnosticBag();
+        private readonly string _text;
 
         private int _pos;
         private int _start;

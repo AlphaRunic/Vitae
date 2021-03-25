@@ -7,7 +7,7 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
 {
     public class SyntaxFactTest
     {
-        //[Theory]
+        [Theory]
         [MemberData(nameof(GetSyntaxTypeData))]
         public void SyntaxFact_GetText_RoundTrips(SyntaxType type)
         {
