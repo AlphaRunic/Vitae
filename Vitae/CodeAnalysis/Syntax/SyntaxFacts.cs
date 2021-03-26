@@ -9,9 +9,9 @@ namespace Vitae.CodeAnalysis.Syntax
         {
             switch (type)
             {
-                case SyntaxType.Plus:
-                case SyntaxType.Minus:
-                case SyntaxType.Bang:
+                case SyntaxType.PlusToken:
+                case SyntaxType.MinusToken:
+                case SyntaxType.BangToken:
                     return 7;
                 
                 default:
@@ -23,25 +23,25 @@ namespace Vitae.CodeAnalysis.Syntax
         {
             switch (type)
             {
-                case SyntaxType.Power:
+                case SyntaxType.CaratToken:
                     return 6;
 
-                case SyntaxType.Modulo:
-                case SyntaxType.Multiply:
-                case SyntaxType.Divide:
+                case SyntaxType.PercentToken:
+                case SyntaxType.StarToken:
+                case SyntaxType.SlashToken:
                     return 5;
 
-                case SyntaxType.Plus:
-                case SyntaxType.Minus:
+                case SyntaxType.PlusToken:
+                case SyntaxType.MinusToken:
                     return 4;
 
-                case SyntaxType.EqualTo:
-                case SyntaxType.NotEqualTo:
+                case SyntaxType.EqualToToken:
+                case SyntaxType.NotEqualToToken:
                     return 3;
 
-                case SyntaxType.Ampersand:
+                case SyntaxType.AmpersandToken:
                     return 2;
-                case SyntaxType.Pipe:
+                case SyntaxType.PipeToken:
                     return 1;
                 
                 default:
@@ -59,7 +59,7 @@ namespace Vitae.CodeAnalysis.Syntax
                     return SyntaxType.FalseKeyword;
                 
                 default:
-                    return SyntaxType.Identifier;
+                    return SyntaxType.IdentifierToken;
             }
         }
 
@@ -87,33 +87,33 @@ namespace Vitae.CodeAnalysis.Syntax
         {
             switch (type)
             {
-                case SyntaxType.Plus:
+                case SyntaxType.PlusToken:
                     return "+";
-                case SyntaxType.Minus:
+                case SyntaxType.MinusToken:
                     return "-";
-                case SyntaxType.Multiply:
+                case SyntaxType.StarToken:
                     return "*";
-                case SyntaxType.Divide:
+                case SyntaxType.SlashToken:
                     return "/";
-                case SyntaxType.Power:
+                case SyntaxType.CaratToken:
                     return "^";
-                case SyntaxType.Modulo:
+                case SyntaxType.PercentToken:
                     return "%";
-                case SyntaxType.Bang:
+                case SyntaxType.BangToken:
                     return "!";
-                case SyntaxType.Assignment:
+                case SyntaxType.EqualsToken:
                     return "=";
-                case SyntaxType.Ampersand:
+                case SyntaxType.AmpersandToken:
                     return "&";
-                case SyntaxType.Pipe:
+                case SyntaxType.PipeToken:
                     return "|";
-                case SyntaxType.EqualTo:
+                case SyntaxType.EqualToToken:
                     return "==";
-                case SyntaxType.NotEqualTo:
+                case SyntaxType.NotEqualToToken:
                     return "!=";
-                case SyntaxType.OpenParen:
+                case SyntaxType.OpenParenToken:
                     return "(";
-                case SyntaxType.ClosedParen:
+                case SyntaxType.ClosedParenToken:
                     return ")";
                 case SyntaxType.FalseKeyword:
                     return "false";

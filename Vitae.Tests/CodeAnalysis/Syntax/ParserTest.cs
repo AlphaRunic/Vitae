@@ -24,15 +24,15 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
                     e.AssertNode(SyntaxType.BinaryExpression);
                     e.AssertNode(SyntaxType.BinaryExpression);
                     e.AssertNode(SyntaxType.NameExpression);
-                    e.AssertToken(SyntaxType.Identifier, "a");
+                    e.AssertToken(SyntaxType.IdentifierToken, "a");
                     e.AssertToken(op1, op1Text);
 
                     e.AssertNode(SyntaxType.NameExpression);
-                    e.AssertToken(SyntaxType.Identifier, "b");
+                    e.AssertToken(SyntaxType.IdentifierToken, "b");
                     e.AssertToken(op2, op2Text);
 
                     e.AssertNode(SyntaxType.NameExpression);
-                    e.AssertToken(SyntaxType.Identifier, "c");
+                    e.AssertToken(SyntaxType.IdentifierToken, "c");
                 }
             }
             else
@@ -41,16 +41,16 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
                 {
                     e.AssertNode(SyntaxType.BinaryExpression);
                     e.AssertNode(SyntaxType.NameExpression);
-                    e.AssertToken(SyntaxType.Identifier, "a");
+                    e.AssertToken(SyntaxType.IdentifierToken, "a");
                     e.AssertToken(op1, op1Text);
 
                     e.AssertNode(SyntaxType.BinaryExpression);
                     e.AssertNode(SyntaxType.NameExpression);
-                    e.AssertToken(SyntaxType.Identifier, "b");
+                    e.AssertToken(SyntaxType.IdentifierToken, "b");
                     e.AssertToken(op2, op2Text);
 
                     e.AssertNode(SyntaxType.NameExpression);
-                    e.AssertToken(SyntaxType.Identifier, "c");
+                    e.AssertToken(SyntaxType.IdentifierToken, "c");
                 }
             }
         }
@@ -75,11 +75,11 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
                     e.AssertToken(unaryType, unaryText);
 
                     e.AssertNode(SyntaxType.NameExpression);
-                    e.AssertToken(SyntaxType.Identifier, "a");
+                    e.AssertToken(SyntaxType.IdentifierToken, "a");
                     e.AssertToken(binaryType, binaryText);
 
                     e.AssertNode(SyntaxType.NameExpression);
-                    e.AssertToken(SyntaxType.Identifier, "b");
+                    e.AssertToken(SyntaxType.IdentifierToken, "b");
                 }
             }
             else
@@ -91,11 +91,11 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
 
                     e.AssertNode(SyntaxType.BinaryExpression);
                     e.AssertNode(SyntaxType.NameExpression);
-                    e.AssertToken(SyntaxType.Identifier, "a");
+                    e.AssertToken(SyntaxType.IdentifierToken, "a");
                     e.AssertToken(binaryType, binaryText);
                     
                     e.AssertNode(SyntaxType.NameExpression);
-                    e.AssertToken(SyntaxType.Identifier, "b");
+                    e.AssertToken(SyntaxType.IdentifierToken, "b");
                 }
             }
         }

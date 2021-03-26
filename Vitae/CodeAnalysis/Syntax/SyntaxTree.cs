@@ -29,7 +29,7 @@ namespace Vitae.CodeAnalysis.Syntax
             while (true)
             {
                 Token token = lexer.Lex();
-                if (token.Type == SyntaxType.EOF)
+                if (token.Type == SyntaxType.EOFToken)
                     break;
                 
                 yield return token;

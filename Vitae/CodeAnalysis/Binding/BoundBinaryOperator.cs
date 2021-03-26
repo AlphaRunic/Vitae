@@ -32,20 +32,20 @@ namespace Vitae.CodeAnalysis.Binding
 
         private static BoundBinaryOperator[] _operators =
         {
-            new BoundBinaryOperator(SyntaxType.Plus, BoundBinaryOperatorType.Addition, typeof(int)),
-            new BoundBinaryOperator(SyntaxType.Minus, BoundBinaryOperatorType.Subtraction, typeof(int)),
-            new BoundBinaryOperator(SyntaxType.Multiply, BoundBinaryOperatorType.Multiplication, typeof(int)),
-            new BoundBinaryOperator(SyntaxType.Divide, BoundBinaryOperatorType.Division, typeof(int)),
-            new BoundBinaryOperator(SyntaxType.Power, BoundBinaryOperatorType.Exponentation, typeof(int)),
-            new BoundBinaryOperator(SyntaxType.Modulo, BoundBinaryOperatorType.Modulus, typeof(int)),
+            new BoundBinaryOperator(SyntaxType.PlusToken, BoundBinaryOperatorType.Addition, typeof(int)),
+            new BoundBinaryOperator(SyntaxType.MinusToken, BoundBinaryOperatorType.Subtraction, typeof(int)),
+            new BoundBinaryOperator(SyntaxType.StarToken, BoundBinaryOperatorType.Multiplication, typeof(int)),
+            new BoundBinaryOperator(SyntaxType.SlashToken, BoundBinaryOperatorType.Division, typeof(int)),
+            new BoundBinaryOperator(SyntaxType.CaratToken, BoundBinaryOperatorType.Exponentation, typeof(int)),
+            new BoundBinaryOperator(SyntaxType.PercentToken, BoundBinaryOperatorType.Modulus, typeof(int)),
 
-            new BoundBinaryOperator(SyntaxType.EqualTo, BoundBinaryOperatorType.Equals, typeof(int), typeof(bool)),
-            new BoundBinaryOperator(SyntaxType.NotEqualTo, BoundBinaryOperatorType.NotEquals, typeof(int), typeof(bool)),
-            new BoundBinaryOperator(SyntaxType.EqualTo, BoundBinaryOperatorType.Equals, typeof(bool)),
-            new BoundBinaryOperator(SyntaxType.NotEqualTo, BoundBinaryOperatorType.NotEquals, typeof(bool)),
+            new BoundBinaryOperator(SyntaxType.EqualToToken, BoundBinaryOperatorType.Equals, typeof(int), typeof(bool)),
+            new BoundBinaryOperator(SyntaxType.NotEqualToToken, BoundBinaryOperatorType.NotEquals, typeof(int), typeof(bool)),
+            new BoundBinaryOperator(SyntaxType.EqualToToken, BoundBinaryOperatorType.Equals, typeof(bool)),
+            new BoundBinaryOperator(SyntaxType.NotEqualToToken, BoundBinaryOperatorType.NotEquals, typeof(bool)),
 
-            new BoundBinaryOperator(SyntaxType.Ampersand, BoundBinaryOperatorType.LogicalAnd, typeof(bool)),
-            new BoundBinaryOperator(SyntaxType.Pipe, BoundBinaryOperatorType.LogicalOr, typeof(bool))
+            new BoundBinaryOperator(SyntaxType.AmpersandToken, BoundBinaryOperatorType.LogicalAnd, typeof(bool)),
+            new BoundBinaryOperator(SyntaxType.PipeToken, BoundBinaryOperatorType.LogicalOr, typeof(bool))
         };
 
         public static BoundBinaryOperator Bind(SyntaxType syntaxType, Type leftType, Type rightType)

@@ -15,10 +15,10 @@ namespace Vitae.CodeAnalysis.Syntax {
             do {
                 token = lexer.Lex();
 
-                if (token.Type != SyntaxType.Whitespace && token.Type != SyntaxType.Invalid) {
+                if (token.Type != SyntaxType.WhitespaceToken && token.Type != SyntaxType.InvalidToken) {
                     tokens.Add(token);
                 }
-            } while (token.Type != SyntaxType.EOF);
+            } while (token.Type != SyntaxType.EOFToken);
 
             _tokens = tokens.ToArray();
             _diagnostics.AddRange(lexer.Diagnostics);
@@ -55,7 +55,7 @@ namespace Vitae.CodeAnalysis.Syntax {
         public SyntaxTree Parse()
         {
             var expr = ParseExpression();
-            var eofToken = MatchToken(SyntaxType.EOF);
+            var eofToken = MatchToken(SyntaxType.EOFToken);
             return new SyntaxTree(_diagnostics, expr, eofToken);
         }
 
@@ -66,7 +66,7 @@ namespace Vitae.CodeAnalysis.Syntax {
 
         private ExpressionSyntax ParseAssignmentExpression()
         {
-            if (Peek(0).Type == SyntaxType.Identifier && Peek(1).Type == SyntaxType.Assignment)
+            if (Peek(0).Type == SyntaxType.IdentifierToken && Peek(1).Type == SyntaxType.EqualsToken)
             {
                 Token identifier = NextToken();
                 Token operatorToken = NextToken();
@@ -110,11 +110,11 @@ namespace Vitae.CodeAnalysis.Syntax {
         {
             switch (Current.Type)
             {
-                case SyntaxType.OpenParen:
+                case SyntaxType.OpenParenToken:
                     {
                         Token left = NextToken();
                         ExpressionSyntax expr = ParseExpression();
-                        Token right = MatchToken(SyntaxType.ClosedParen);
+                        Token right = MatchToken(SyntaxType.ClosedParenToken);
                         return new ParenthesizedExpression(left, expr, right);
                     }
 
@@ -129,7 +129,7 @@ namespace Vitae.CodeAnalysis.Syntax {
                         return new LiteralExpression(keywordToken, true);
                     }
 
-                case SyntaxType.Identifier:
+                case SyntaxType.IdentifierToken:
                 {
                     Token identifier = NextToken();
                     return new NameExpression(identifier);
@@ -137,7 +137,7 @@ namespace Vitae.CodeAnalysis.Syntax {
 
                 default:
                     {
-                        Token numberToken = MatchToken(SyntaxType.Number);
+                        Token numberToken = MatchToken(SyntaxType.NumberToken);
                         return new LiteralExpression(numberToken);
                     }
             }

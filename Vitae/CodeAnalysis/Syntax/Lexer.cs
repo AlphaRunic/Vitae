@@ -39,63 +39,63 @@ namespace Vitae.CodeAnalysis.Syntax
 
         public Token Lex() {
             _start = _pos;
-            _type = SyntaxType.Invalid;
+            _type = SyntaxType.InvalidToken;
             _value = null;
             
             switch(Current) {
                     case '\0':
-                        _type = SyntaxType.EOF;
+                        _type = SyntaxType.EOFToken;
                         break;
                     case '+':
-                        _type = SyntaxType.Plus;
+                        _type = SyntaxType.PlusToken;
                         _pos++;
                         break;
                     case '-':
-                        _type = SyntaxType.Minus;
+                        _type = SyntaxType.MinusToken;
                         _pos++;
                         break;
                     case '*':
-                        _type = SyntaxType.Multiply;
+                        _type = SyntaxType.StarToken;
                         _pos++;
                         break;
                     case '/':
-                        _type = SyntaxType.Divide;
+                        _type = SyntaxType.SlashToken;
                         _pos++;
                         break;
                     case '%':
-                        _type = SyntaxType.Modulo;
+                        _type = SyntaxType.PercentToken;
                         _pos++;
                         break;
                     case '^':
-                        _type = SyntaxType.Power;
+                        _type = SyntaxType.CaratToken;
                         _pos++;
                         break;
                     case '(':
-                        _type = SyntaxType.OpenParen;
+                        _type = SyntaxType.OpenParenToken;
                         _pos++;
                         break;
                     case ')':
-                        _type = SyntaxType.ClosedParen;
+                        _type = SyntaxType.ClosedParenToken;
                         _pos++;
                         break;
 
                     case '&':
-                        _type = SyntaxType.Ampersand;
+                        _type = SyntaxType.AmpersandToken;
                         _pos++;
                         break;
                     case '|':
-                        _type = SyntaxType.Pipe;
+                        _type = SyntaxType.PipeToken;
                         _pos++;
                         break;
                     case '=':
                     {
                         _pos++;
                         if (Current != '=')
-                            _type = SyntaxType.Assignment;
+                            _type = SyntaxType.EqualsToken;
                         else
                         {
                             _pos++;
-                            _type = SyntaxType.EqualTo; 
+                            _type = SyntaxType.EqualToToken; 
                         }
                         break;
                     }
@@ -103,11 +103,11 @@ namespace Vitae.CodeAnalysis.Syntax
                     {
                         _pos++;
                         if (Current != '=')
-                            _type = SyntaxType.Bang;
+                            _type = SyntaxType.BangToken;
                         else
                         {
                             _pos++;
-                            _type = SyntaxType.NotEqualTo;
+                            _type = SyntaxType.NotEqualToToken;
                         }
                         break;
                     } 
@@ -150,7 +150,7 @@ namespace Vitae.CodeAnalysis.Syntax
             while (char.IsWhiteSpace(Current))
                 _pos++;
 
-            _type = SyntaxType.Whitespace;
+            _type = SyntaxType.WhitespaceToken;
         }
 
         private void ReadNumber()
@@ -164,7 +164,7 @@ namespace Vitae.CodeAnalysis.Syntax
                 _diagnostics.ReportInvalidNumber(new TextSpan(_start, length), _text, typeof(int));
 
             _value = value;
-            _type = SyntaxType.Number;
+            _type = SyntaxType.NumberToken;
         }
 
         private void ReadIdentifierOrKeyword()

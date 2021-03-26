@@ -25,9 +25,9 @@ namespace Vitae.CodeAnalysis.Binding
 
         private static BoundUnaryOperator[] _operators =
         {
-            new BoundUnaryOperator(SyntaxType.Bang, BoundUnaryOperatorType.LogicalNegation, typeof(bool)),
-            new BoundUnaryOperator(SyntaxType.Plus, BoundUnaryOperatorType.Identity, typeof(int)),
-            new BoundUnaryOperator(SyntaxType.Minus, BoundUnaryOperatorType.Negation, typeof(int)),
+            new BoundUnaryOperator(SyntaxType.BangToken, BoundUnaryOperatorType.LogicalNegation, typeof(bool)),
+            new BoundUnaryOperator(SyntaxType.PlusToken, BoundUnaryOperatorType.Identity, typeof(int)),
+            new BoundUnaryOperator(SyntaxType.MinusToken, BoundUnaryOperatorType.Negation, typeof(int)),
         };
 
         public static BoundUnaryOperator Bind(SyntaxType syntaxType, Type operandType)

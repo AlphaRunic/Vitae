@@ -10,6 +10,23 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
 {
     public class LexerTest
     {
+        [Fact]
+        public void Lexer_Tests_AllTokens()
+        {
+            var tokenTypes = Enum.GetValues(typeof(SyntaxType))
+                                .Cast<SyntaxType>()
+                                .Where(t => t.ToString().EndsWith("Keyword") ||
+                                            t.ToString().EndsWith("Token"));
+            
+            var testedTokenTypes = GetTokens().Concat(GetSeparators()).Select(t => t.type);
+            var untestedTokenTypes = new SortedSet<SyntaxType>(tokenTypes);
+            untestedTokenTypes.Remove(SyntaxType.InvalidToken);
+            untestedTokenTypes.Remove(SyntaxType.EOFToken);
+            untestedTokenTypes.ExceptWith(testedTokenTypes);
+
+            Assert.Empty(untestedTokenTypes);
+        }
+
         [Theory]
         [MemberData(nameof(GetTokensData))]
         public void Lexer_Lexes_Token(SyntaxType type, string text)
@@ -78,10 +95,10 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
 
             var dynamicTokens = new[]
             {
-                (SyntaxType.Number, "1"),
-                (SyntaxType.Number, "123"),
-                (SyntaxType.Identifier, "a"),
-                (SyntaxType.Identifier, "abc"),
+                (SyntaxType.NumberToken, "1"),
+                (SyntaxType.NumberToken, "123"),
+                (SyntaxType.IdentifierToken, "a"),
+                (SyntaxType.IdentifierToken, "abc"),
             };
 
             return fixedTokens.Concat(dynamicTokens);
@@ -91,11 +108,11 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
         {
             return new[]
             {
-                (SyntaxType.Whitespace, " "),
-                (SyntaxType.Whitespace, "  "),
-                (SyntaxType.Whitespace, "\r"),
-                (SyntaxType.Whitespace, "\n"),
-                (SyntaxType.Whitespace, "\r\n")
+                (SyntaxType.WhitespaceToken, " "),
+                (SyntaxType.WhitespaceToken, "  "),
+                (SyntaxType.WhitespaceToken, "\r"),
+                (SyntaxType.WhitespaceToken, "\n"),
+                (SyntaxType.WhitespaceToken, "\r\n")
             };
         }
 
@@ -104,31 +121,31 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
             var t1IsKeyword = t1Type.ToString().EndsWith("Keyword");
             var t2IsKeyword = t2Type.ToString().EndsWith("Keyword");
 
-            if (t1Type == SyntaxType.Identifier && t2Type == SyntaxType.Identifier)
+            if (t1Type == SyntaxType.IdentifierToken && t2Type == SyntaxType.IdentifierToken)
                 return true;
 
             if (t1IsKeyword && t2IsKeyword)
                 return true;
 
-            if (t1IsKeyword && t2Type == SyntaxType.Identifier)
+            if (t1IsKeyword && t2Type == SyntaxType.IdentifierToken)
                 return true;
 
-            if (t1Type == SyntaxType.Identifier && t2IsKeyword)
+            if (t1Type == SyntaxType.IdentifierToken && t2IsKeyword)
                 return true;
 
-            if (t1Type == SyntaxType.Number && t2Type == SyntaxType.Number)
+            if (t1Type == SyntaxType.NumberToken && t2Type == SyntaxType.NumberToken)
                 return true;
 
-            if (t1Type == SyntaxType.Bang && t2Type == SyntaxType.Assignment)
+            if (t1Type == SyntaxType.BangToken && t2Type == SyntaxType.EqualsToken)
                 return true;
 
-            if (t1Type == SyntaxType.Bang && t2Type == SyntaxType.EqualTo)
+            if (t1Type == SyntaxType.BangToken && t2Type == SyntaxType.EqualToToken)
                 return true;
 
-            if (t1Type == SyntaxType.Assignment && t2Type == SyntaxType.Assignment)
+            if (t1Type == SyntaxType.EqualsToken && t2Type == SyntaxType.EqualsToken)
                 return true;
 
-            if (t1Type == SyntaxType.Assignment && t2Type == SyntaxType.EqualTo)
+            if (t1Type == SyntaxType.EqualsToken && t2Type == SyntaxType.EqualToToken)
                 return true;
 
             return false;
