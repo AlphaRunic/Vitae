@@ -33,10 +33,6 @@ namespace Vitae.CodeAnalysis.Syntax
             return _text[index];
         }
 
-        private void Next() {
-            _pos++;
-        }
-
         public Token Lex() {
             _start = _pos;
             _type = SyntaxType.InvalidToken;
