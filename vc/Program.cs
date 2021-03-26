@@ -22,7 +22,7 @@ namespace Vitae
                 if (string.IsNullOrEmpty(line))
                     return;
 
-                if (line == "#showTree")
+                if (line == "#showTrees")
                 {
                     showTree = !showTree;
                     Console.WriteLine(showTree ? "Showing parse trees." : "Not showing parse trees.");
@@ -42,8 +42,8 @@ namespace Vitae
                 
                 if (showTree)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    PrettyPrint(syntaxTree.Root);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    syntaxTree.Root.WriteTo(Console.Out);
                     Console.ResetColor();
                 }
 
@@ -79,25 +79,6 @@ namespace Vitae
                     Console.WriteLine(result.Value);
                 }
             }
-        }
-
-        static void PrettyPrint(SyntaxNode node, string indent = "")
-        {
-            Console.Write(indent);
-            Console.Write(node.Type);
-
-            if (node is Token t && t.Value != null)
-            {
-                Console.Write(" ");
-                Console.Write(t.Value);
-            }
-
-            Console.WriteLine();
-
-            indent += "   ";
-
-            foreach (var child in node.GetChildren())
-                PrettyPrint(child, indent);
         }
     }
 }
