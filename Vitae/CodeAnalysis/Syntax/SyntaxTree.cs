@@ -1,18 +1,19 @@
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace Vitae.CodeAnalysis.Syntax
 {
     public sealed class SyntaxTree
     {
-        public SyntaxTree(DiagnosticBag diagnostics, ExpressionSyntax root, Token EOF)
+        public SyntaxTree(ImmutableArray<Diagnostic> diagnostics, ExpressionSyntax root, Token EOF)
         {
-            Diagnostics = diagnostics.ToArray();
+            Diagnostics = diagnostics;
             Root = root;
             this.EOF = EOF;
         }
 
-        public Diagnostic[] Diagnostics { get; }
+        public ImmutableArray<Diagnostic> Diagnostics { get; }
         public ExpressionSyntax Root { get; }
         public Token EOF { get; }
 

@@ -27,3 +27,4 @@ C:\cygwin64\home\dawnv\dev\Vitae\Vitae\obj\Debug\netcoreapp3.1\vc.genruntimeconf
 C:\cygwin64\home\dawnv\dev\Vitae\vc\bin\Debug\netcoreapp3.1\Vitae.dll
 C:\cygwin64\home\dawnv\dev\Vitae\vc\bin\Debug\netcoreapp3.1\Vitae.pdb
 C:\cygwin64\home\dawnv\dev\Vitae\vc\obj\Debug\netcoreapp3.1\vc.csproj.CopyComplete
+C:\cygwin64\home\dawnv\dev\Vitae\vc\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll

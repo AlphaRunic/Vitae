@@ -98,3 +98,4 @@ C:\cygwin64\home\dawnv\dev\Vitae\Vitae.Tests\bin\Debug\netcoreapp3.1\Vitae.dll
 C:\cygwin64\home\dawnv\dev\Vitae\Vitae.Tests\bin\Debug\netcoreapp3.1\Vitae.pdb
 C:\cygwin64\home\dawnv\dev\Vitae\Vitae.Tests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestLogger.dll
 C:\cygwin64\home\dawnv\dev\Vitae\Vitae.Tests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.Extension.Xunit.Xml.TestAdapter.dll
+C:\cygwin64\home\dawnv\dev\Vitae\Vitae.Tests\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wsW37oTYBHMtMZtVaEnato4icTeK0satU8N64jpyEeEtzOGXMN/g2MN5mwRAS3yAHn0N6AjO+xSnH7psZlmJXg==",
+  "dgSpecHash": "tWS9pAt0WOYy0wdOLtfcc3oSOrnQRAKxH3ngWT6u1jjIbeyeoE+gGTRiA3vgQlYldjbJwosJXkVFrWze8bYnmg==",
   "success": true,
   "projectFilePath": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae.Tests\\Vitae.Tests.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\dawnv\\.nuget\\packages\\newtonsoft.json\\9.0.1\\newtonsoft.json.9.0.1.nupkg.sha512",
     "C:\\Users\\dawnv\\.nuget\\packages\\nuget.frameworks\\5.0.0\\nuget.frameworks.5.0.0.nupkg.sha512",
     "C:\\Users\\dawnv\\.nuget\\packages\\system.collections\\4.0.11\\system.collections.4.0.11.nupkg.sha512",
+    "C:\\Users\\dawnv\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\dawnv\\.nuget\\packages\\system.diagnostics.debug\\4.0.11\\system.diagnostics.debug.4.0.11.nupkg.sha512",
     "C:\\Users\\dawnv\\.nuget\\packages\\system.diagnostics.tools\\4.0.1\\system.diagnostics.tools.4.0.1.nupkg.sha512",
     "C:\\Users\\dawnv\\.nuget\\packages\\system.dynamic.runtime\\4.0.11\\system.dynamic.runtime.4.0.11.nupkg.sha512",
