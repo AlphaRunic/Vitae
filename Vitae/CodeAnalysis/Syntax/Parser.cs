@@ -3,8 +3,8 @@ using System.Collections.Generic;
 namespace Vitae.CodeAnalysis.Syntax {
     internal sealed class Parser {
         private readonly Token[] _tokens;
+        private readonly DiagnosticBag _diagnostics = new DiagnosticBag();
 
-        private DiagnosticBag _diagnostics = new DiagnosticBag();
         private int _pos;
 
         public Parser(string text) {
@@ -111,36 +111,46 @@ namespace Vitae.CodeAnalysis.Syntax {
             switch (Current.Type)
             {
                 case SyntaxType.OpenParenToken:
-                    {
-                        Token left = NextToken();
-                        ExpressionSyntax expr = ParseExpression();
-                        Token right = MatchToken(SyntaxType.ClosedParenToken);
-                        return new ParenthesizedExpression(left, expr, right);
-                    }
+                    return ParseParenthesizedExpression();
 
                 case SyntaxType.FalseKeyword:
-                    {
-                        Token keywordToken = NextToken();
-                        return new LiteralExpression(keywordToken, false);
-                    }
                 case SyntaxType.TrueKeyword:
-                    {
-                        Token keywordToken = NextToken();
-                        return new LiteralExpression(keywordToken, true);
-                    }
+                    return ParseBooleanLiteral();
+
+                case SyntaxType.NumberToken:
+                    return ParseNumberLiteral();
 
                 case SyntaxType.IdentifierToken:
-                {
-                    Token identifier = NextToken();
-                    return new NameExpression(identifier);
-                }
-
                 default:
-                    {
-                        Token numberToken = MatchToken(SyntaxType.NumberToken);
-                        return new LiteralExpression(numberToken);
-                    }
+                    return ParseNameExpression();
             }
+        }
+
+        private ExpressionSyntax ParseNumberLiteral()
+        {
+            Token numberToken = MatchToken(SyntaxType.NumberToken);
+            return new LiteralExpression(numberToken);
+        }
+
+        private ExpressionSyntax ParseParenthesizedExpression()
+        {
+            Token left = MatchToken(SyntaxType.OpenParenToken);
+            ExpressionSyntax expr = ParseExpression();
+            Token right = MatchToken(SyntaxType.ClosedParenToken);
+            return new ParenthesizedExpression(left, expr, right);
+        }
+
+        private ExpressionSyntax ParseBooleanLiteral()
+        {
+            bool isTrue = Current.Type == SyntaxType.TrueKeyword;
+            Token keyword = isTrue ? MatchToken(SyntaxType.TrueKeyword) : MatchToken(SyntaxType.FalseKeyword);
+            return new LiteralExpression(keyword, isTrue);
+        }
+
+        private ExpressionSyntax ParseNameExpression()
+        {
+            Token identifier = MatchToken(SyntaxType.IdentifierToken);
+            return new NameExpression(identifier);
         }
     }
 }
