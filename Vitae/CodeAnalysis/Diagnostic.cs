@@ -1,3 +1,5 @@
+using Vitae.CodeAnalysis.Text;
+
 namespace Vitae.CodeAnalysis
 {
     public sealed class Diagnostic

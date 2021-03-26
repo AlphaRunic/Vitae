@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Vitae.CodeAnalysis.Text;
 
 namespace Vitae.CodeAnalysis.Syntax
 {

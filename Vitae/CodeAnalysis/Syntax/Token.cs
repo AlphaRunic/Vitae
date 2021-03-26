@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Vitae.CodeAnalysis.Text;
 
-namespace Vitae.CodeAnalysis.Syntax {
-    public sealed class Token : SyntaxNode {
+namespace Vitae.CodeAnalysis.Syntax
+{
+    public sealed class Token : SyntaxNode
+    {
         public override  TextSpan Span => new TextSpan(Position, Text.Length);
         public override SyntaxType Type { get; }
         public int Position { get; }

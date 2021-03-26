@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Vitae.CodeAnalysis.Syntax;
+using Vitae.CodeAnalysis.Text;
 
 namespace Vitae.CodeAnalysis
 {
