@@ -16,13 +16,5 @@ namespace Vitae.CodeAnalysis.Syntax
         public Token ClosedParen { get; }
 
         public override SyntaxType Type => SyntaxType.ParenthesizedExpression;
-
-        public override IEnumerable<SyntaxNode> GetChildren()
-        {
-            yield return OpenParen;
-            yield return Expression;
-            yield return ClosedParen;
-        }
-
     }
 }

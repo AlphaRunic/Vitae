@@ -18,10 +18,5 @@ namespace Vitae.CodeAnalysis.Syntax
         public override SyntaxType Type => SyntaxType.LiteralExpression;
         public Token Token { get; }
         public object Value { get; }
-
-        public override IEnumerable<SyntaxNode> GetChildren()
-        {
-            yield return Token;
-        }
     }
 }

@@ -13,11 +13,5 @@ namespace Vitae.CodeAnalysis.Syntax
         public override SyntaxType Type => SyntaxType.UnaryExpression;
         public Token OperatorToken { get; }
         public ExpressionSyntax Operand { get; }
-
-        public override IEnumerable<SyntaxNode> GetChildren()
-        {
-            yield return OperatorToken;
-            yield return Operand;
-        }
     }
 }
