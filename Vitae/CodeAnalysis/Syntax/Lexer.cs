@@ -7,14 +7,14 @@ namespace Vitae.CodeAnalysis.Syntax
     internal sealed class Lexer
     {
         private readonly DiagnosticBag _diagnostics = new DiagnosticBag();
-        private readonly string _text;
+        private readonly SourceText _text;
 
         private int _pos;
         private int _start;
         private SyntaxType _type;
         private object _value;
 
-        public Lexer(string text)
+        public Lexer(SourceText text)
         {
             _text = text;
         }
@@ -137,7 +137,7 @@ namespace Vitae.CodeAnalysis.Syntax
             string text = SyntaxFacts.GetText(_type);
             int length = _pos - _start;
             if (text == null)
-                text = _text.Substring(_start, length);
+                text = _text.ToString(_start, length);
 
             return new Token(_type, _start, text, _value);
         }
@@ -156,9 +156,9 @@ namespace Vitae.CodeAnalysis.Syntax
                 _pos++;
 
             var length = _pos - _start;
-            var text = _text.Substring(_start, length);
+            var text = _text.ToString(_start, length);
             if (!int.TryParse(text, out var value))
-                _diagnostics.ReportInvalidNumber(new TextSpan(_start, length), _text, typeof(int));
+                _diagnostics.ReportInvalidNumber(new TextSpan(_start, length), text, typeof(int));
 
             _value = value;
             _type = SyntaxType.NumberToken;
@@ -170,7 +170,7 @@ namespace Vitae.CodeAnalysis.Syntax
                 _pos++;
 
             var length = _pos - _start;
-            var text = _text.Substring(_start, length);
+            var text = _text.ToString(_start, length);
             _type = SyntaxFacts.GetKeywordType(text);
         }
     }

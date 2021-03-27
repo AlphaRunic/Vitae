@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using Vitae.CodeAnalysis.Text;
 
 namespace Vitae.CodeAnalysis.Syntax {
     internal sealed class Parser {
         private readonly ImmutableArray<Token> _tokens;
         private readonly DiagnosticBag _diagnostics = new DiagnosticBag();
-
+        private readonly SourceText _text;
         private int _pos;
 
-        public Parser(string text) {
+        public Parser(SourceText text) {
             var tokens = new List<Token>(); 
             var lexer = new Lexer(text);
             Token token;
@@ -23,6 +24,7 @@ namespace Vitae.CodeAnalysis.Syntax {
 
             _tokens = tokens.ToImmutableArray();
             _diagnostics.AddRange(lexer.Diagnostics);
+            _text = text;
         }
 
         public DiagnosticBag Diagnostics => _diagnostics;
@@ -57,7 +59,7 @@ namespace Vitae.CodeAnalysis.Syntax {
         {
             var expr = ParseExpression();
             var eofToken = MatchToken(SyntaxType.EOFToken);
-            return new SyntaxTree(_diagnostics.ToImmutableArray(), expr, eofToken);
+            return new SyntaxTree(_text, _diagnostics.ToImmutableArray(), expr, eofToken);
         }
 
         private ExpressionSyntax ParseExpression()
