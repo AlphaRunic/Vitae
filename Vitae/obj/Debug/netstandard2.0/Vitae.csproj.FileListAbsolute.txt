@@ -7,3 +7,12 @@ C:\cygwin64\home\dawnv\dev\Vitae\Vitae\bin\Debug\netstandard2.0\Vitae.dll
 C:\cygwin64\home\dawnv\dev\Vitae\Vitae\bin\Debug\netstandard2.0\Vitae.pdb
 C:\cygwin64\home\dawnv\dev\Vitae\Vitae\obj\Debug\netstandard2.0\Vitae.dll
 C:\cygwin64\home\dawnv\dev\Vitae\Vitae\obj\Debug\netstandard2.0\Vitae.pdb
+C:\cygwin64\dev\Vitae\Vitae\bin\Debug\netstandard2.0\Vitae.deps.json
+C:\cygwin64\dev\Vitae\Vitae\bin\Debug\netstandard2.0\Vitae.dll
+C:\cygwin64\dev\Vitae\Vitae\bin\Debug\netstandard2.0\Vitae.pdb
+C:\cygwin64\dev\Vitae\Vitae\obj\Debug\netstandard2.0\Vitae.csprojAssemblyReference.cache
+C:\cygwin64\dev\Vitae\Vitae\obj\Debug\netstandard2.0\Vitae.AssemblyInfoInputs.cache
+C:\cygwin64\dev\Vitae\Vitae\obj\Debug\netstandard2.0\Vitae.AssemblyInfo.cs
+C:\cygwin64\dev\Vitae\Vitae\obj\Debug\netstandard2.0\Vitae.csproj.CoreCompileInputs.cache
+C:\cygwin64\dev\Vitae\Vitae\obj\Debug\netstandard2.0\Vitae.dll
+C:\cygwin64\dev\Vitae\Vitae\obj\Debug\netstandard2.0\Vitae.pdb

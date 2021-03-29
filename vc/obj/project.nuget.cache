@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sFiB6XEcMdQ2Os6aU3HWE3npVho3hBXFnjvI+9xdeKtMLUhmSNLv0lyx3bvcH3dGXmg4ckJD6L/R6Kg1CaTzPQ==",
+  "dgSpecHash": "z425oPx4XWIMh6aOyGYR58ahYjV5xsP7o/4v9Ei3BTPtTDNfbpOWdtRIe89L6kTdDYxpbiGGWj15xBxhQPXSXw==",
   "success": true,
-  "projectFilePath": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\vc\\vc.csproj",
+  "projectFilePath": "C:\\cygwin64\\dev\\Vitae\\vc\\vc.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dawnv\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512"
   ],

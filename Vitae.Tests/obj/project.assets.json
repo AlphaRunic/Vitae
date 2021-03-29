@@ -3586,11 +3586,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae.Tests\\Vitae.Tests.csproj",
+      "projectUniqueName": "C:\\cygwin64\\dev\\Vitae\\Vitae.Tests\\Vitae.Tests.csproj",
       "projectName": "Vitae.Tests",
-      "projectPath": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae.Tests\\Vitae.Tests.csproj",
+      "projectPath": "C:\\cygwin64\\dev\\Vitae\\Vitae.Tests\\Vitae.Tests.csproj",
       "packagesPath": "C:\\Users\\dawnv\\.nuget\\packages\\",
-      "outputPath": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae.Tests\\obj\\",
+      "outputPath": "C:\\cygwin64\\dev\\Vitae\\Vitae.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dawnv\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -3604,8 +3604,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae\\Vitae.csproj": {
-              "projectPath": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae\\Vitae.csproj"
+            "C:\\cygwin64\\dev\\Vitae\\Vitae\\Vitae.csproj": {
+              "projectPath": "C:\\cygwin64\\dev\\Vitae\\Vitae\\Vitae.csproj"
             }
           }
         }

@@ -391,11 +391,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae\\Vitae.csproj",
+      "projectUniqueName": "C:\\cygwin64\\dev\\Vitae\\Vitae\\Vitae.csproj",
       "projectName": "Vitae",
-      "projectPath": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae\\Vitae.csproj",
+      "projectPath": "C:\\cygwin64\\dev\\Vitae\\Vitae\\Vitae.csproj",
       "packagesPath": "C:\\Users\\dawnv\\.nuget\\packages\\",
-      "outputPath": "C:\\cygwin64\\home\\dawnv\\dev\\Vitae\\Vitae\\obj\\",
+      "outputPath": "C:\\cygwin64\\dev\\Vitae\\Vitae\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dawnv\\AppData\\Roaming\\NuGet\\NuGet.Config"
