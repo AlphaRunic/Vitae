@@ -10,19 +10,19 @@ namespace Vitae.CodeAnalysis
 {
     public sealed class Compilation
     {
-        public Compilation(SyntaxTree syntax)
+        public Compilation(SyntaxTree tree)
         {
-            Syntax = syntax;
+            Tree = tree;
         }
 
-        public SyntaxTree Syntax { get; }
+        public SyntaxTree Tree { get; }
 
         public EvaluationResult Evaluate(Dictionary<VariableSymbol, object> variables)
         {
             var binder = new Binder(variables);
-            var boundExpression = binder.BindExpression(Syntax.Root);
+            var boundExpression = binder.BindExpression(Tree.Root.Expression);
 
-            var diagnostics = Syntax.Diagnostics.Concat(binder.Diagnostics).ToImmutableArray();
+            var diagnostics = Tree.Diagnostics.Concat(binder.Diagnostics).ToImmutableArray();
             if (diagnostics.Any())
                 return new EvaluationResult(diagnostics, null);
 

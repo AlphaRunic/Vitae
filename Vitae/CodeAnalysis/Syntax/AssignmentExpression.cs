@@ -16,4 +16,17 @@ namespace Vitae.CodeAnalysis.Syntax
         public Token EqualsToken { get; }
         public ExpressionSyntax Expression { get; }
     }
+
+    public sealed class CompilationUnitSyntax : SyntaxNode
+    {
+        public CompilationUnitSyntax(ExpressionSyntax expr, Token eofToken)
+        {
+            Expression = expr;
+            EofToken = eofToken;
+        }
+
+        public ExpressionSyntax Expression { get; }
+        public Token EofToken { get; }
+        public override SyntaxType Type => SyntaxType.CompilationUnit;
+    }
 }

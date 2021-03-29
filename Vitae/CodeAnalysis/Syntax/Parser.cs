@@ -55,11 +55,11 @@ namespace Vitae.CodeAnalysis.Syntax {
             return new Token(type, Current.Position, null, null);
         }
 
-        public SyntaxTree Parse()
+        public CompilationUnitSyntax ParseCompilationUnit()
         {
             var expr = ParseExpression();
             var eofToken = MatchToken(SyntaxType.EOFToken);
-            return new SyntaxTree(_text, _diagnostics.ToImmutableArray(), expr, eofToken);
+            return new CompilationUnitSyntax(expr, eofToken);
         }
 
         private ExpressionSyntax ParseExpression()

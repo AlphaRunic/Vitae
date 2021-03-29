@@ -33,6 +33,10 @@ namespace Vitae.CodeAnalysis.Syntax
         NameExpression,
         AssignmentExpression,
 
+        // Nodes
+
+        CompilationUnit,
+
         // Keywords
         TrueKeyword,
         FalseKeyword

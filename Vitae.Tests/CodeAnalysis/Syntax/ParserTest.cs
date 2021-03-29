@@ -10,12 +10,12 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
         [MemberData(nameof(GetBinaryOperatorPairsData))]
         public void Parser_BinaryExpression_HonorsPrecedences(SyntaxType op1, SyntaxType op2)
         {
-            int op1Precedence = SyntaxFacts.GetBinaryOperatorPrecedence(op1);
-            int op2Precedence = SyntaxFacts.GetBinaryOperatorPrecedence(op2);
-            string op1Text = SyntaxFacts.GetText(op1);
-            string op2Text = SyntaxFacts.GetText(op2);
-            string text = $"a {op1Text} b {op2Text} c";
-            ExpressionSyntax expr = SyntaxTree.Parse(text).Root;
+            var op1Precedence = SyntaxFacts.GetBinaryOperatorPrecedence(op1);
+            var op2Precedence = SyntaxFacts.GetBinaryOperatorPrecedence(op2);
+            var op1Text = SyntaxFacts.GetText(op1);
+            var op2Text = SyntaxFacts.GetText(op2);
+            var text = $"a {op1Text} b {op2Text} c";
+            var expr = SyntaxTree.Parse(text).Root;
 
             if (op1Precedence >= op2Precedence)
             {
@@ -59,12 +59,12 @@ namespace Vitae.Tests.CodeAnalysis.Syntax
         [MemberData(nameof(GetUnaryOperatorPairsData))]
         public void Parser_UnaryExpression_HonorsPrecedences(SyntaxType unaryType, SyntaxType binaryType)
         {
-            int unaryPrecedence = SyntaxFacts.GetUnaryOperatorPrecedence(unaryType);
-            int binaryPrecedence = SyntaxFacts.GetBinaryOperatorPrecedence(binaryType);
-            string unaryText = SyntaxFacts.GetText(unaryType);
-            string binaryText = SyntaxFacts.GetText(binaryType);
-            string text = $"{unaryText} a {binaryText} b";
-            ExpressionSyntax expr = SyntaxTree.Parse(text).Root;
+            var unaryPrecedence = SyntaxFacts.GetUnaryOperatorPrecedence(unaryType);
+            var binaryPrecedence = SyntaxFacts.GetBinaryOperatorPrecedence(binaryType);
+            var unaryText = SyntaxFacts.GetText(unaryType);
+            var binaryText = SyntaxFacts.GetText(binaryType);
+            var text = $"{unaryText} a {binaryText} b";
+            var expr = SyntaxTree.Parse(text).Root;
 
             if (!(unaryPrecedence >= binaryPrecedence))
             {
