@@ -19,10 +19,14 @@ namespace Vitae
 
             while (true)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                
                 if (textBuilder.Length == 0)
-                    Console.Write("Vitae >> ");
+                    Console.Write("Vitae » ");
                 else
-                    Console.Write("| ");
+                    Console.Write("· ");
+
+                Console.ResetColor();
 
                 var input = Console.ReadLine();
                 var isBlank = string.IsNullOrEmpty(input);
@@ -55,14 +59,14 @@ namespace Vitae
 
                 if (showTree)
                 {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.ForegroundColor = ConsoleColor.Green;
                     syntaxTree.Root.WriteTo(Console.Out);
                     Console.ResetColor();
                 }
 
                 if (!result.Diagnostics.Any())
                 {
-                    Console.WriteLine(result.Value);
+                    Printer.PrintInColor(Console.Out, ConsoleColor.Magenta, result.Value, true);
                 }
                 else
                 {
@@ -89,9 +93,7 @@ namespace Vitae
                         Console.Write("    ");
                         Console.Write(prefix);
 
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.Write(error);
-                        Console.ResetColor();
+                        Printer.PrintInColor(Console.Out, ConsoleColor.DarkRed, error);
 
                         Console.Write(suffix);
                         Console.WriteLine();

@@ -49,10 +49,19 @@ namespace Vitae.CodeAnalysis.Syntax
 
         private static void PrettyPrint(TextWriter writer, SyntaxNode node, string indent = "", bool isLast = true)
         {
+            bool isToConsole = writer == Console.Out;
             string marker = isLast ? "└──" : "├──";
 
             writer.Write(indent);
+
+            if (isToConsole)
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+
             writer.Write(marker);
+
+            if (isToConsole)
+                Console.ForegroundColor = node is Token ? ConsoleColor.DarkGreen : ConsoleColor.Cyan;
+
             writer.Write(node.Type);
 
             if (node is Token t && t.Value != null)
@@ -61,11 +70,16 @@ namespace Vitae.CodeAnalysis.Syntax
                 writer.Write(t.Value);
             }
 
+            if (isToConsole)
+            {
+                Console.ResetColor();
+            }
+
             writer.WriteLine();
 
             indent += isLast ? "   " : "│ ";
 
-            var lastChild = node.GetChildren().LastOrDefault();
+            SyntaxNode lastChild = node.GetChildren().LastOrDefault();
 
             foreach (var child in node.GetChildren())
                 PrettyPrint(writer, child, indent, child == lastChild);
@@ -73,7 +87,7 @@ namespace Vitae.CodeAnalysis.Syntax
 
         public override string ToString()
         {
-            using (var writer = new StringWriter())
+            using (StringWriter writer = new StringWriter())
             {
                 WriteTo(writer);
                 return writer.ToString();
