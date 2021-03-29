@@ -67,7 +67,7 @@ namespace Vitae.CodeAnalysis.Text
                 }
             }
 
-            if (pos > lineStart)
+            if (pos >= lineStart)
                 AddLine(result, sourceText, pos, lineStart, 0);
 
             return result.ToImmutable();
